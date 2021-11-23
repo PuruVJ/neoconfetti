@@ -1,6 +1,7 @@
 {
 	"name": "svelte-confetti-explosion",
-	"version": "0.0.4",
+	"version": "0.0.5",
+	"svelte": "index.js",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
@@ -22,6 +23,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-confetti-explosion": "0.0.3"
+		"svelte-confetti-explosion": "0.0.4"
 	}
 }
