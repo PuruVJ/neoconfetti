@@ -171,6 +171,12 @@ You can specify two style props on the component: `--x` and `--y`. These will sh
 <ConfettiExplosion --x="10px" --y="10px" />
 ```
 
+## Examples
+
+[Basic Example](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.44.2)
+
+[Confetti where mouse click](https://svelte.dev/repl/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.44.2)
+
 ## Performance
 
 This library functions by creating 2 DOM nodes for every single confetti. By default, if the `particlesCount` is set to 150, it will create 300 nodes. This is a lot of nodes. For most devices, these many nodes are not a big issue, but I recommend checking your target devices' performance if you choose to go with a higher number, like 400 or 500.
