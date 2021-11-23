@@ -29,7 +29,7 @@
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
 		"package": "svelte-kit package",
-		"pub": "pnpm package && cd scripts && tsm clean-pkg.ts && cd ../package pnpm publish",
+		"pub": "pnpm package && cd scripts && tsm clean-pkg.ts && cd ../package && pnpm publish",
 		"preview": "svelte-kit preview"
 	},
 	"devDependencies": {
