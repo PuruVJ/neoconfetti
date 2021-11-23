@@ -3,7 +3,7 @@
 </script>
 
 <div>
-	<ConfettiExplosion particleCount={150} force={0.3} />
+	<ConfettiExplosion particleCount={100} force={0.3} />
 </div>
 
 <style lang="scss">

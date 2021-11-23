@@ -25,19 +25,124 @@
 			degree: i * increment,
 		}));
 	};
+
+	type Rotate3dTransform = [number, number, number];
+
+	const waitFor = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+	// From here: https://stackoverflow.com/a/11832950
+	function round(num: number, precision: number = 2) {
+		return Math.round((num + Number.EPSILON) * 10 ** precision) / 10 ** precision;
+	}
+
+	function arraysEqual<ItemType>(a: ItemType[], b: ItemType[]) {
+		if (a === b) return true;
+		if (a == null || b == null) return false;
+		if (a.length !== b.length) return false;
+
+		for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+
+		return true;
+	}
+
+	const mapRange = (value: number, x1: number, y1: number, x2: number, y2: number) =>
+		((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
+
+	const rotate = (degree: number, amount: number) => {
+		const result = degree + amount;
+		return result > 360 ? result - 360 : result;
+	};
+
+	const coinFlip = () => Math.random() > 0.5;
+
+	// avoid this for circles, as it will have no visual effect
+	const zAxisRotation: Rotate3dTransform = [0, 0, 1];
+
+	const rotationTransforms: Rotate3dTransform[] = [
+		// dual axis rotations (a bit more realistic)
+		[1, 1, 0],
+		[1, 0, 1],
+		[0, 1, 1],
+		// single axis rotations (a bit dumber)
+		[1, 0, 0],
+		[0, 1, 0],
+		zAxisRotation,
+	];
+
+	const shouldBeCircle = (rotationIndex: number) =>
+		!arraysEqual(rotationTransforms[rotationIndex], zAxisRotation) && coinFlip();
+
+	const isUndefined = (value: any) => typeof value === 'undefined';
+
+	const warn = (message: string) => {
+		console.warn(message);
+	};
+
+	const error = (message: string) => {
+		console.error(message);
+	};
+
+	function validate(
+		particleCount: number,
+		duration: number,
+		colors: string[],
+		particleSize: number,
+		force: number,
+		floorHeight: number,
+		floorWidth: number
+	) {
+		const isSafeInteger = Number.isSafeInteger;
+		if (!isUndefined(particleCount) && isSafeInteger(particleCount) && particleCount < 0) {
+			error('particleCount must be a positive integer');
+			return false;
+		}
+
+		if (!isUndefined(duration) && isSafeInteger(duration) && duration < 0) {
+			error('duration must be a positive integer');
+			return false;
+		}
+
+		if (!isUndefined(colors) && !Array.isArray(colors)) {
+			error('colors must be an array of strings');
+			return false;
+		}
+
+		if (!isUndefined(particleSize) && isSafeInteger(particleSize) && particleSize < 0) {
+			error('particleSize must be a positive integer');
+			return false;
+		}
+
+		if (!isUndefined(force) && isSafeInteger(force) && (force < 0 || force > 1)) {
+			error('force must be a positive integer and should be within 0 and 1');
+			return false;
+		}
+
+		if (
+			!isUndefined(floorHeight) &&
+			typeof floorHeight === 'number' &&
+			isSafeInteger(floorHeight) &&
+			floorHeight < 0
+		) {
+			error('floorHeight must be a positive integer');
+			return false;
+		}
+
+		if (
+			!isUndefined(floorWidth) &&
+			typeof floorWidth === 'number' &&
+			isSafeInteger(floorWidth) &&
+			floorWidth < 0
+		) {
+			error('floorWidth must be a positive integer');
+			return false;
+		}
+
+		return true;
+	}
 </script>
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import {
-		coinFlip,
-		mapRange,
-		rotate,
-		rotationTransforms,
-		round,
-		shouldBeCircle,
-		waitFor,
-	} from './utils';
 
 	export let particleCount = PARTICLE_COUNT;
 	export let duration = DURATION;
@@ -50,6 +155,16 @@
 	const particles = createParticles(particleCount, colors);
 
 	let isVisible = true;
+
+	$: isValid = validate(
+		particleCount,
+		duration,
+		colors,
+		particleSize,
+		force,
+		floorHeight,
+		floorWidth
+	);
 
 	onMount(async () => {
 		await waitFor(duration);
@@ -90,37 +205,39 @@
 		// roughly the ease of free-fall
 		const y4 = round(Math.max(mapRange(Math.abs(degree - 180), 0, 180, force, -force), 0), 4);
 
-		node.style.setProperty('--x-landing-point', `${landingPoint}px`);
+		const setCSSVar = (key: string, val: string | number) => node.style.setProperty(key, val + '');
 
-		node.style.setProperty('--duration-chaos', `${durationChaos}ms`);
+		setCSSVar('--x-landing-point', `${landingPoint}px`);
 
-		node.style.setProperty('--x1', `${x1}`);
-		node.style.setProperty('--x2', `${x2}`);
-		node.style.setProperty('--x3', `${x3}`);
-		node.style.setProperty('--x4', `${x4}`);
+		setCSSVar('--duration-chaos', `${durationChaos}ms`);
 
-		node.style.setProperty('--y1', `${y1}`);
-		node.style.setProperty('--y2', `${y2}`);
-		node.style.setProperty('--y3', `${y3}`);
-		node.style.setProperty('--y4', `${y4}`);
+		setCSSVar('--x1', `${x1}`);
+		setCSSVar('--x2', `${x2}`);
+		setCSSVar('--x3', `${x3}`);
+		setCSSVar('--x4', `${x4}`);
+
+		setCSSVar('--y1', `${y1}`);
+		setCSSVar('--y2', `${y2}`);
+		setCSSVar('--y3', `${y3}`);
+		setCSSVar('--y4', `${y4}`);
 
 		// set --width and --height here
-		node.style.setProperty(
+		setCSSVar(
 			'--width',
 			`${isCircle ? particleSize : Math.round(Math.random() * 4) + particleSize / 2}px`
 		);
-		node.style.setProperty(
+		setCSSVar(
 			'--height',
 			(isCircle ? particleSize : Math.round(Math.random() * 2) + particleSize) + 'px'
 		);
 
-		node.style.setProperty('--rotation', `${rotationTransforms[rotationIndex].join()}`);
-		node.style.setProperty('--rotation-duration', `${rotation}ms`);
-		node.style.setProperty('--border-radius', `${isCircle ? '50%' : '0'}`);
+		setCSSVar('--rotation', `${rotationTransforms[rotationIndex].join()}`);
+		setCSSVar('--rotation-duration', `${rotation}ms`);
+		setCSSVar('--border-radius', `${isCircle ? '50%' : '0'}`);
 	}
 </script>
 
-{#if isVisible}
+{#if isVisible && isValid}
 	<div class="container" style="--floor-height: {floorHeight}px;">
 		{#each particles as { color, degree }}
 			<div class="particle" use:confettiStyles={{ degree }}>
