@@ -1,6 +1,7 @@
 <script lang="ts">
 	// import { ConfettiExplosion } from '$lib';
 	import { ConfettiExplosion } from 'svelte-confetti-explosion';
+	// 	import  ConfettiExplosion  from 'svelte-confetti-explosion/ConfettiExplosion.svelte';
 </script>
 
 <div>

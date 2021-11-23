@@ -154,6 +154,19 @@
 	export let particleCount = PARTICLE_COUNT;
 
 	/**
+	 * Size of the confetti particles in pixels
+	 *
+	 * @default 12
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion particleSize={20} />
+	 * ```
+	 */
+	export let particleSize = SIZE;
+
+	/**
 	 * Duration of the animation in milliseconds
 	 *
 	 * @default 3500
@@ -181,19 +194,6 @@
 	export let colors = COLORS;
 
 	/**
-	 * Size of the confetti particles in pixels
-	 *
-	 * @default 12
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion particleSize={20} />
-	 * ```
-	 */
-	export let particleSize = SIZE;
-
-	/**
 	 * Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum force.
 	 *
 	 * @default 0.5
@@ -207,7 +207,7 @@
 	export let force = FORCE;
 
 	/**
-	 * Height of the floor in pixels. Confetti will only fall within this height.
+	 * Height of the stage in pixels. Confetti will only fall within this height.
 	 *
 	 * @default 800
 	 *
@@ -217,10 +217,10 @@
 	 * <ConfettiExplosion floorHeight={500} />
 	 * ```
 	 */
-	export let floorHeight = FLOOR_HEIGHT;
+	export let stageHeight = FLOOR_HEIGHT;
 
 	/**
-	 * Width of the floor in pixels. Confetti will only fall within this width.
+	 * Width of the stage in pixels. Confetti will only fall within this width.
 	 *
 	 * @default 1600
 	 *
@@ -230,7 +230,7 @@
 	 * <ConfettiExplosion floorWidth={1000} />
 	 * ```
 	 */
-	export let floorWidth = FLOOR_WIDTH;
+	export let stageWidth = FLOOR_WIDTH;
 
 	/**
 	 * Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to preserve memory.
@@ -249,14 +249,21 @@
 
 	$: particles = createParticles(particleCount, colors);
 
+	// FOR FUN!!!
+	$: particleCount > 300 &&
+		console.log(
+			"[SVELTE-CONFETTI-EXPLOSION] That's a lot of confetti, you sure about that? A lesser number" +
+				' like 200 will still give off the party vibes while still not bricking the device 😉'
+		);
+
 	$: isValid = validate(
 		particleCount,
 		duration,
 		colors,
 		particleSize,
 		force,
-		floorHeight,
-		floorWidth
+		stageHeight,
+		stageWidth
 	);
 
 	onMount(async () => {
@@ -273,8 +280,8 @@
 			Math.abs(rotate(degree, 90) - 180),
 			0,
 			180,
-			-floorWidth / 2,
-			floorWidth / 2
+			-stageWidth / 2,
+			stageWidth / 2
 		);
 
 		// Crazy calculations for generating styles
@@ -333,7 +340,7 @@
 </script>
 
 {#if isVisible && isValid}
-	<div class="container" style="--floor-height: {floorHeight}px;">
+	<div class="container" style="--floor-height: {stageHeight}px;">
 		{#each particles as { color, degree }}
 			<div class="particle" use:confettiStyles={{ degree }}>
 				<div style="--bgcolor: {color};" />

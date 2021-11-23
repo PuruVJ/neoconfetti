@@ -7,14 +7,14 @@ specifiers:
   sass: ^1.43.4
   svelte: ^3.44.2
   svelte-check: ^2.2.10
-  svelte-confetti-explosion: 0.0.4
+  svelte-confetti-explosion: 0.0.5
   svelte-preprocess: ^4.9.8
   svelte2tsx: ^0.4.10
   tslib: ^2.3.1
   typescript: ^4.5.2
 
 dependencies:
-  svelte-confetti-explosion: 0.0.4
+  svelte-confetti-explosion: 0.0.5
 
 devDependencies:
   '@sveltejs/kit': 1.0.0-next.197_sass@1.43.4+svelte@3.44.2
@@ -804,8 +804,8 @@ packages:
       - sugarss
     dev: true
 
-  /svelte-confetti-explosion/0.0.4:
-    resolution: {integrity: sha512-xbklozfUBmLJOBXULcui/jiTChagXVAjlyJAHxztDtbBlxVCPnhaOtWRuRl5rdpl4t/3a5yvTuFzgw2Cp5O2cA==}
+  /svelte-confetti-explosion/0.0.5:
+    resolution: {integrity: sha512-7UGPkkLK9iR7yEr8nAGaYT/fKavx2IaDk8563Sa7Ovl9wizD73Bbo8AJRgB8uC6ctNgtyd/mOf90AnIiyDL8hQ==}
     dev: false
 
   /svelte-hmr/0.14.7_svelte@3.44.2:
