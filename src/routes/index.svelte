@@ -1,10 +1,10 @@
 <script lang="ts">
 	// import { ConfettiExplosion } from '$lib';
-	import { ConfettiExplosion } from 'svelte-confetti-explosion';
+	import ConfettiExplosion from 'svelte-confetti-explosion/ConfettiExplosion.svelte';
 </script>
 
 <div>
-	<ConfettiExplosion particleCount={100} force={0.3} />
+	<ConfettiExplosion particleCount={100} force={0.3} shouldDestroyAfterDone={false} />
 </div>
 
 <style lang="scss">
