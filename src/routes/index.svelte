@@ -2,4 +2,21 @@
 	import { ConfettiExplosion } from '$lib';
 </script>
 
-<ConfettiExplosion />
+<div>
+	<ConfettiExplosion particleCount={150} force={0.3} />
+</div>
+
+<style lang="scss">
+	:global(body) {
+		overflow: hidden;
+	}
+
+	div {
+		position: absolute;
+		top: 20%;
+		left: 40%;
+		right: 0;
+		bottom: 0;
+		background: rgba(255, 255, 255, 0.5);
+	}
+</style>
