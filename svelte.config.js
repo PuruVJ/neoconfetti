@@ -14,7 +14,7 @@ const config = {
 			emitTypes: true,
 			dir: 'package',
 			exports: (file) => {
-				return file === 'index.ts';
+				return file === 'index.ts' || file.endsWith('.svelte');
 			},
 		},
 	},
