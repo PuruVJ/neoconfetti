@@ -1,7 +1,30 @@
 {
 	"name": "svelte-confetti-explosion",
-	"version": "0.0.6",
+	"version": "0.0.7",
+	"description": "Confetti explosion in Svelte 🎉🎊",
+	"author": "Puru Vijay",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/PuruVJ/svelte-confetti-explosion/issues"
+	},
+	"sideEffects": false,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PuruVJ/svelte-confetti-explosion.git"
+	},
 	"svelte": "index.js",
+	"keywords": [
+		"confetti",
+		"party",
+		"fun",
+		"badass",
+		"badassery",
+		"svelte",
+		"sveltekit",
+		"small",
+		"tiny",
+		"performant"
+	],
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
