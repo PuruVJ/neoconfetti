@@ -1,8 +1,10 @@
 <script lang="ts" context="module">
-	interface Particle {
+	type Particle = {
 		color: string; // color of particle
 		degree: number; // vector direction, between 0-360 (0 being straight up ↑)
-	}
+	};
+
+	type Rotate3dTransform = [number, number, number];
 
 	const ROTATION_SPEED_MIN = 200; // minimum possible duration of single particle full rotation
 	const ROTATION_SPEED_MAX = 800; // maximum possible duration of single particle full rotation
@@ -25,8 +27,6 @@
 			degree: i * increment,
 		}));
 	};
-
-	type Rotate3dTransform = [number, number, number];
 
 	const waitFor = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -73,10 +73,6 @@
 		!arraysEqual(rotationTransforms[rotationIndex], zAxisRotation) && coinFlip();
 
 	const isUndefined = (value: any) => typeof value === 'undefined';
-
-	const warn = (message: string) => {
-		console.warn(message);
-	};
 
 	const error = (message: string) => {
 		console.error(message);
@@ -144,17 +140,114 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	/**
+	 * Number of confetti particles to create
+	 *
+	 * @default 150
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion particleCount={200} />
+	 * ```
+	 */
 	export let particleCount = PARTICLE_COUNT;
+
+	/**
+	 * Duration of the animation in milliseconds
+	 *
+	 * @default 3500
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion duration={5000} />
+	 * ```
+	 */
 	export let duration = DURATION;
+
+	/**
+	 * Colors to use for the confetti particles. Pass string array of colors. Can use hex colors, named colors,
+	 * CSS Variables, literally anything valid in plain CSS.
+	 *
+	 * @default ['#FFC700', '#FF0000', '#2E3191', '#41BBC7']
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion colors={['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7']} />
+	 * ```
+	 */
 	export let colors = COLORS;
+
+	/**
+	 * Size of the confetti particles in pixels
+	 *
+	 * @default 12
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion particleSize={20} />
+	 * ```
+	 */
 	export let particleSize = SIZE;
+
+	/**
+	 * Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum force.
+	 *
+	 * @default 0.5
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion force={0.8} />
+	 * ```
+	 */
 	export let force = FORCE;
+
+	/**
+	 * Height of the floor in pixels. Confetti will only fall within this height.
+	 *
+	 * @default 800
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion floorHeight={500} />
+	 * ```
+	 */
 	export let floorHeight = FLOOR_HEIGHT;
+
+	/**
+	 * Width of the floor in pixels. Confetti will only fall within this width.
+	 *
+	 * @default 1600
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion floorWidth={1000} />
+	 * ```
+	 */
 	export let floorWidth = FLOOR_WIDTH;
 
-	const particles = createParticles(particleCount, colors);
+	/**
+	 * Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to preserve memory.
+	 *
+	 * @default true
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion shouldDestroyAfterDone={false} />
+	 * ```
+	 */
+	export let shouldDestroyAfterDone = true;
 
 	let isVisible = true;
+
+	$: particles = createParticles(particleCount, colors);
 
 	$: isValid = validate(
 		particleCount,
@@ -169,7 +262,9 @@
 	onMount(async () => {
 		await waitFor(duration);
 
-		isVisible = false;
+		if (shouldDestroyAfterDone) {
+			isVisible = false;
+		}
 	});
 
 	function confettiStyles(node: HTMLDivElement, { degree }: { degree: number }) {
