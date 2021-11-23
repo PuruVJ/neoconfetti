@@ -1,6 +1,6 @@
 {
 	"name": "svelte-confetti-explosion",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"svelte": "./ConfettiExplosion.svelte",
 	"scripts": {
 		"dev": "svelte-kit dev",
