@@ -14,7 +14,7 @@ Let's party 🎊🎊 with Svelte! svelte-confetti-explosion allows you to show a
 
 [Try it in Svelte REPL](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.44.2)
 
-# Installing
+## Installing
 
 ```bash
 # pnpm
@@ -27,7 +27,7 @@ npm install svelte-confetti-explosion
 yarn add svelte-confetti-explosion
 ```
 
-# Usage
+## Usage
 
 Basic usage:
 
@@ -45,11 +45,11 @@ Customizing behavior with options:
 <ConfettiExplosion particleCount={200} force={0.3} />
 ```
 
-# Options
+## Props
 
 There's tons of options available for this package. All of them are already documented within the code itself, so you'll never have to leave the code editor.
 
-## particleCount
+### particleCount
 
 Number of confetti particles to create.
 
@@ -63,7 +63,7 @@ Number of confetti particles to create.
 <ConfettiExplosion particleCount={200} />
 ```
 
-## particleSize
+### particleSize
 
 Size of the confetti particles in pixels
 
@@ -77,7 +77,7 @@ Size of the confetti particles in pixels
 <ConfettiExplosion particleSize={20} />
 ```
 
-## duration
+### duration
 
 Duration of the animation in milliseconds
 
@@ -91,7 +91,7 @@ Duration of the animation in milliseconds
 <ConfettiExplosion duration={5000} />
 ```
 
-## colors
+### colors
 
 Colors to use for the confetti particles. Pass string array of colors. Can use hex colors, named colors, CSS Variables, literally anything valid in plain CSS.
 
@@ -105,7 +105,7 @@ Colors to use for the confetti particles. Pass string array of colors. Can use h
 <ConfettiExplosion colors={['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7']} />
 ```
 
-## force
+### force
 
 Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum force. Will error out if you pass a value outside of this range.
 
@@ -119,7 +119,7 @@ Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum fo
 <ConfettiExplosion force={0.3} />
 ```
 
-## stageHeight
+### stageHeight
 
 Height of the stage in pixels. Confetti will only fall within this height.
 
@@ -133,7 +133,7 @@ Height of the stage in pixels. Confetti will only fall within this height.
 <ConfettiExplosion stageHeight={500} />
 ```
 
-## stageWidth
+### stageWidth
 
 Width of the stage in pixels. Confetti will only fall within this width.
 
@@ -147,7 +147,7 @@ Width of the stage in pixels. Confetti will only fall within this width.
 <ConfettiExplosion stageWidth={500} />
 ```
 
-## shouldDestroyAfterDone
+### shouldDestroyAfterDone
 
 Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to free up memory.
 
@@ -161,12 +161,27 @@ Whether or not destroy all confetti nodes after the `duration` period has passed
 <ConfettiExplosion shouldDestroyAfterDone={false} />
 ```
 
-# Performance
+## Style Props
+
+You can specify two style props on the component: `--x` and `--y`. These will shift the confetti particles on the x and y axis. by how much you specify, These can be in `px`, `em`, `rem`, `vh`, `vw`, literally any valid CSS unit.
+
+**USAGE:**
+
+```svelte
+<ConfettiExplosion --x="10px" --y="10px" />
+```
+
+## Performance
 
 This library functions by creating 2 DOM nodes for every single confetti. By default, if the `particlesCount` is set to 150, it will create 300 nodes. This is a lot of nodes. For most devices, these many nodes are not a big issue, but I recommend checking your target devices' performance if you choose to go with a higher number, like 400 or 500.
 
 Also, after the specified `duration`, all the confetti DOM nodes will be destroyed. This is to free up memory. If you wish to keep them around, set `shouldDestroyAfterDone` to `false`.
 
-# License
+## License
 
 MIT License
+© [Puru Vijay](https://twitter.com/puruvjdev)
+
+```
+
+```

@@ -375,6 +375,9 @@
 		overflow: visible;
 
 		position: relative;
+
+		transform: translate3d(var(--x, 0), var(--y, 0), 0);
+
 		z-index: 1200;
 	}
 

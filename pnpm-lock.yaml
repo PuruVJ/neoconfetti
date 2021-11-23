@@ -11,10 +11,8 @@ specifiers:
   svelte-preprocess: ^4.9.8
   svelte2tsx: ^0.4.10
   tslib: ^2.3.1
+  tsm: ^2.1.4
   typescript: ^4.5.2
-
-dependencies:
-  svelte-confetti-explosion: 0.0.5
 
 devDependencies:
   '@sveltejs/kit': 1.0.0-next.197_sass@1.43.4+svelte@3.44.2
@@ -23,9 +21,11 @@ devDependencies:
   sass: 1.43.4
   svelte: 3.44.2
   svelte-check: 2.2.10_sass@1.43.4+svelte@3.44.2
+  svelte-confetti-explosion: 0.0.5
   svelte-preprocess: 4.9.8_cc0d4d3887496abdfa00fee563a1941f
   svelte2tsx: 0.4.10_svelte@3.44.2+typescript@4.5.2
   tslib: 2.3.1
+  tsm: 2.1.4
   typescript: 4.5.2
 
 packages:
@@ -806,7 +806,7 @@ packages:
 
   /svelte-confetti-explosion/0.0.5:
     resolution: {integrity: sha512-7UGPkkLK9iR7yEr8nAGaYT/fKavx2IaDk8563Sa7Ovl9wizD73Bbo8AJRgB8uC6ctNgtyd/mOf90AnIiyDL8hQ==}
-    dev: false
+    dev: true
 
   /svelte-hmr/0.14.7_svelte@3.44.2:
     resolution: {integrity: sha512-pDrzgcWSoMaK6AJkBWkmgIsecW0GChxYZSZieIYfCP0v2oPyx2CYU/zm7TBIcjLVUPP714WxmViE9Thht4etog==}
@@ -894,6 +894,14 @@ packages:
 
   /tslib/2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
+    dev: true
+
+  /tsm/2.1.4:
+    resolution: {integrity: sha512-gz1zckplzOzHdiY1HVVUoH8bl2eWxbU6uJraB31w1NQ+/kQkjix3ldYHBnWaoNnOL9q8ruS+E2Wckdcw56DzrA==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dependencies:
+      esbuild: 0.13.15
     dev: true
 
   /typescript/4.5.2:
