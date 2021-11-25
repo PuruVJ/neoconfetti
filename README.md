@@ -105,6 +105,24 @@ Colors to use for the confetti particles. Pass string array of colors. Can use h
 <ConfettiExplosion colors={['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7']} />
 ```
 
+### particlesShape
+
+Shape of particles to use. Can be `mix`, `circles` or `rectangles`
+
+`mix` will use both circles and rectangles
+`circles` will use only circles
+`rectangles` will use only rectangles
+
+**type:** `'mix' | 'circles' | 'rectangles'`
+
+**Default value:** `'mix'`
+
+**Example:**
+
+```svelte
+<ConfettiExplosion particlesShape="circles" />
+```
+
 ### force
 
 Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum force. Will error out if you pass a value outside of this range.
