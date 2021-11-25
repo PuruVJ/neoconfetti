@@ -8,6 +8,7 @@
 	<ConfettiExplosion
 		particleCount={100}
 		force={0.3}
+		particlesShape="mix"
 		shouldDestroyAfterDone={false}
 		--x="-100px"
 		--y="500px"

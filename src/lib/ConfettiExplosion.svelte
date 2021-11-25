@@ -6,6 +6,8 @@
 
 	type Rotate3dTransform = [number, number, number];
 
+	type ParticleShape = 'mix' | 'circles' | 'rectangles';
+
 	const ROTATION_SPEED_MIN = 200; // minimum possible duration of single particle full rotation
 	const ROTATION_SPEED_MAX = 800; // maximum possible duration of single particle full rotation
 	const CRAZY_PARTICLES_FREQUENCY = 0.1; // 0-1 frequency of crazy curvy unpredictable particles
@@ -84,8 +86,9 @@
 		colors: string[],
 		particleSize: number,
 		force: number,
-		floorHeight: number,
-		floorWidth: number
+		stageHeight: number,
+		stageWidth: number,
+		particlesShape: ParticleShape
 	) {
 		const isSafeInteger = Number.isSafeInteger;
 		if (!isUndefined(particleCount) && isSafeInteger(particleCount) && particleCount < 0) {
@@ -95,6 +98,14 @@
 
 		if (!isUndefined(duration) && isSafeInteger(duration) && duration < 0) {
 			error('duration must be a positive integer');
+			return false;
+		}
+
+		if (
+			!isUndefined(particlesShape) &&
+			!['mix', 'circles', 'rectangles'].includes(particlesShape)
+		) {
+			error('particlesShape should be either "mix" or "circles" or "rectangle"');
 			return false;
 		}
 
@@ -114,20 +125,20 @@
 		}
 
 		if (
-			!isUndefined(floorHeight) &&
-			typeof floorHeight === 'number' &&
-			isSafeInteger(floorHeight) &&
-			floorHeight < 0
+			!isUndefined(stageHeight) &&
+			typeof stageHeight === 'number' &&
+			isSafeInteger(stageHeight) &&
+			stageHeight < 0
 		) {
 			error('floorHeight must be a positive integer');
 			return false;
 		}
 
 		if (
-			!isUndefined(floorWidth) &&
-			typeof floorWidth === 'number' &&
-			isSafeInteger(floorWidth) &&
-			floorWidth < 0
+			!isUndefined(stageWidth) &&
+			typeof stageWidth === 'number' &&
+			isSafeInteger(stageWidth) &&
+			stageWidth < 0
 		) {
 			error('floorWidth must be a positive integer');
 			return false;
@@ -178,6 +189,29 @@
 	 * ```
 	 */
 	export let duration = DURATION;
+
+	/**
+	 * Shape of particles to use. Can be `mix`, `circles` or `rectangles`
+	 *
+	 * `mix` will use both circles and rectangles
+	 * `circles` will use only circles
+	 * `rectangles` will use only rectangles
+	 *
+	 * @default 'mix'
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion particlesShape='circles' />
+	 * ```
+	 *
+	 * @example
+	 *
+	 * ```svelte
+	 * <ConfettiExplosion particlesShape='rectangles' />
+	 * ```
+	 */
+	export let particlesShape: ParticleShape = 'mix';
 
 	/**
 	 * Colors to use for the confetti particles. Pass string array of colors. Can use hex colors, named colors,
@@ -263,7 +297,8 @@
 		particleSize,
 		force,
 		stageHeight,
-		stageWidth
+		stageWidth,
+		particlesShape
 	);
 
 	onMount(async () => {
@@ -289,7 +324,9 @@
 		const rotationIndex = Math.round(Math.random() * (rotationTransforms.length - 1));
 		const durationChaos = duration - Math.round(Math.random() * 1000);
 		const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY;
-		const isCircle = shouldBeCircle(rotationIndex);
+		const isCircle =
+			particlesShape !== 'rectangles' &&
+			(particlesShape === 'circles' || shouldBeCircle(rotationIndex));
 
 		// x-axis disturbance, roughly the distance the particle will initially deviate from its target
 		const x1 = shouldBeCrazy ? round(Math.random() * CRAZY_PARTICLE_CRAZINESS, 2) : 0;
