@@ -379,8 +379,8 @@
 {#if isVisible && isValid}
 	<div class="container" style="--floor-height: {stageHeight}px;">
 		{#each particles as { color, degree }}
-			<div class="particle" use:confettiStyles={{ degree }}>
-				<div style="--bgcolor: {color};" />
+			<div class="particle" class:default={$$slots.default !== true} use:confettiStyles={{ degree }}>
+				<div style="--bgcolor: {color};"><slot/></div>
 			</div>
 		{/each}
 	</div>
@@ -419,33 +419,30 @@
 	}
 
 	.particle {
-		animation: x-axis var(--duration-chaos) forwards
-			cubic-bezier(var(--x1), var(--x2), var(--x3), var(--x4));
-
+		animation: x-axis var(--duration-chaos) forwards cubic-bezier(var(--x1), var(--x2), var(--x3), var(--x4));
 		div {
 			position: absolute;
 			top: 0;
 			left: 0;
-
-			animation: y-axis var(--duration-chaos) forwards
-				cubic-bezier(var(--y1), var(--y2), var(--y3), var(--y4));
-
+			animation: y-axis var(--duration-chaos) forwards cubic-bezier(var(--y1), var(--y2), var(--y3), var(--y4));
 			width: var(--width);
 			height: var(--height);
-
+		}
+		&.default {
+		div {
 			&:before {
 				display: block;
-
 				height: 100%;
 				width: 100%;
-
 				content: '';
 				background-color: var(--bgcolor);
-
-				animation: rotation var(--rotation-duration) infinite linear;
-
 				border-radius: var(--border-radius);
+				animation: rotation var(--rotation-duration) infinite linear;
 			}
 		}
+	}
+
+	:global(.particle *:first-child) {
+		animation: rotation var(--rotation-duration) infinite linear;
 	}
 </style>
