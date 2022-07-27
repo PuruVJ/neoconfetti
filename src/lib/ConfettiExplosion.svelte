@@ -377,10 +377,10 @@
 </script>
 
 {#if isVisible && isValid}
-	<div class="container" style="--floor-height: {stageHeight}px;">
+	<div class="container" style:--floor-height="{stageHeight}px">
 		{#each particles as { color, degree }}
 			<div class="particle" use:confettiStyles={{ degree }}>
-				<div style="--bgcolor: {color};" />
+				<div style:--bgcolor={color} />
 			</div>
 		{/each}
 	</div>

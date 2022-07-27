@@ -7,11 +7,11 @@
 <div>
 	<ConfettiExplosion
 		particleCount={100}
-		force={0.3}
+		force={0.999998}
 		particlesShape="circles"
 		shouldDestroyAfterDone={false}
 		--x="-100px"
-		--y="500px"
+		--y="200px"
 	/>
 </div>
 

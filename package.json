@@ -26,25 +26,28 @@
 		"performant"
 	],
 	"scripts": {
-		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
+		"dev": "vite dev",
+		"build": "vite build",
 		"package": "svelte-kit package",
 		"pub": "pnpm package && cd scripts && tsm clean-pkg.ts && cd ../package && pnpm publish",
-		"preview": "svelte-kit preview"
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync"
 	},
 	"devDependencies": {
-		"@sveltejs/kit": "^1.0.0-next.197",
-		"prettier": "^2.4.1",
-		"prettier-plugin-svelte": "^2.5.0",
-		"sass": "^1.43.4",
-		"svelte": "^3.44.2",
-		"svelte-check": "^2.2.10",
-		"svelte-confetti-explosion": "0.0.5",
-		"svelte-preprocess": "^4.9.8",
-		"svelte2tsx": "^0.4.10",
-		"tslib": "^2.3.1",
-		"tsm": "^2.1.4",
-		"typescript": "^4.5.2"
+		"@sveltejs/kit": "1.0.0-next.396",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.7.0",
+		"sass": "^1.54.0",
+		"svelte": "^3.49.0",
+		"svelte-check": "^2.8.0",
+		"svelte-confetti-explosion": "0.2.0",
+		"svelte-preprocess": "^4.10.7",
+		"svelte2tsx": "^0.4.14",
+		"terser": "^5.14.2",
+		"tslib": "^2.4.0",
+		"tsm": "^2.2.2",
+		"typescript": "^4.7.4",
+		"vite": "^3.0.3"
 	},
 	"type": "module"
 }
