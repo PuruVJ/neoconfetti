@@ -1,9 +1,4 @@
 <script lang="ts" context="module">
-	type Particle = {
-		color: string; // color of particle
-		degree: number; // vector direction, between 0-360 (0 being straight up ↑)
-	};
-
 	type Rotate3dTransform = [number, number, number];
 
 	type ParticleShape = 'mix' | 'circles' | 'rectangles';
@@ -22,7 +17,7 @@
 	const DURATION = 3500;
 	const COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
 
-	const createParticles = (count: number, colors: string[]): Particle[] => {
+	const createParticles = (count: number, colors: string[]) => {
 		const increment = 360 / count;
 		return Array.from({ length: count }, (_, i) => ({
 			color: colors[i % colors.length],
@@ -37,14 +32,8 @@
 		return Math.round((num + Number.EPSILON) * 10 ** precision) / 10 ** precision;
 	}
 
-	function arraysEqual<ItemType>(a: ItemType[], b: ItemType[]) {
-		if (a === b) return true;
-		if (a == null || b == null) return false;
-		if (a.length !== b.length) return false;
-
-		for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
-
-		return true;
+	function rotationArraysEqual<ItemType>(a: ItemType[], b: ItemType[]) {
+		return JSON.stringify(a) === JSON.stringify(b);
 	}
 
 	const mapRange = (value: number, x1: number, y1: number, x2: number, y2: number) =>
@@ -72,7 +61,7 @@
 	];
 
 	const shouldBeCircle = (rotationIndex: number) =>
-		!arraysEqual(rotationTransforms[rotationIndex], zAxisRotation) && coinFlip();
+		!rotationArraysEqual(rotationTransforms[rotationIndex], zAxisRotation) && coinFlip();
 
 	const isUndefined = (value: any) => typeof value === 'undefined';
 
@@ -309,7 +298,7 @@
 		}
 	});
 
-	function confettiStyles(node: HTMLDivElement, { degree }: { degree: number }) {
+	function confettiStyles(node: HTMLDivElement, degree: number) {
 		// Get x landing point for it
 		const landingPoint = mapRange(
 			Math.abs(rotate(degree, 90) - 180),
@@ -350,15 +339,15 @@
 
 		setCSSVar('--duration-chaos', `${durationChaos}ms`);
 
-		setCSSVar('--x1', `${x1}`);
-		setCSSVar('--x2', `${x2}`);
-		setCSSVar('--x3', `${x3}`);
-		setCSSVar('--x4', `${x4}`);
+		setCSSVar('--x1', x1);
+		setCSSVar('--x2', x2);
+		setCSSVar('--x3', x3);
+		setCSSVar('--x4', x4);
 
-		setCSSVar('--y1', `${y1}`);
-		setCSSVar('--y2', `${y2}`);
-		setCSSVar('--y3', `${y3}`);
-		setCSSVar('--y4', `${y4}`);
+		setCSSVar('--y1', y1);
+		setCSSVar('--y2', y2);
+		setCSSVar('--y3', y3);
+		setCSSVar('--y4', y4);
 
 		// set --width and --height here
 		setCSSVar(
@@ -379,7 +368,7 @@
 {#if isVisible && isValid}
 	<div class="container" style:--floor-height="{stageHeight}px">
 		{#each particles as { color, degree }}
-			<div class="particle" use:confettiStyles={{ degree }}>
+			<div class="particle" use:confettiStyles={degree}>
 				<div style:--bgcolor={color} />
 			</div>
 		{/each}
