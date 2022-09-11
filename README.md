@@ -2,7 +2,7 @@
 
 Let's party 🎊🎊 with Svelte! svelte-confetti-explosion allows you to show an awesome confetti explosion on your page, with Svelte!
 
-> This library is the svelte port of the amazing [@reonomy/react-confetti-explosion](https://www.npmjs.com/package/@reonomy/react-confetti-explosion) package. All the logic is from that package only, optimisation and Svelte code are mine 😉
+> This library is the svelte port of the amazing [react-confetti-explosion](https://www.npmjs.com/package//react-confetti-explosion) package. All the logic is from that package only, optimisation and Svelte code are mine 😉
 
 ## Features
 
