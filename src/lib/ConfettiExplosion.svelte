@@ -1,9 +1,4 @@
 <script lang="ts" context="module">
-	type Particle = {
-		color: string; // color of particle
-		degree: number; // vector direction, between 0-360 (0 being straight up ↑)
-	};
-
 	type Rotate3dTransform = [number, number, number];
 
 	type ParticleShape = 'mix' | 'circles' | 'rectangles';
@@ -27,7 +22,7 @@
 		mathRound = Math.round,
 		max = Math.max;
 
-	const createParticles = (count: number, colors: string[]): Particle[] => {
+	const createParticles = (count: number, colors: string[]) => {
 		const increment = 360 / count;
 		return Array.from({ length: count }, (_, i) => ({
 			color: colors[i % colors.length],
@@ -275,7 +270,7 @@
 		}
 	});
 
-	function confettiStyles(node: HTMLDivElement, { degree }: { degree: number }) {
+	function confettiStyles(node: HTMLDivElement, degree: number) {
 		// Crazy calculations for generating styles
 		const rotationTransform = mathRound(random() * (POSSIBLE_ROTATION_TRANSFORMS - 1));
 		const isCircle =
@@ -332,7 +327,7 @@
 {#if isVisible && isValid}
 	<div class="container" style:--floor-height="{stageHeight}px">
 		{#each particles as { color, degree }}
-			<div class="particle" use:confettiStyles={{ degree }}>
+			<div class="particle" use:confettiStyles={degree}>
 				<div style:--bgcolor={color} />
 			</div>
 		{/each}

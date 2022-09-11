@@ -28,26 +28,21 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"package": "svelte-kit package",
+		"package": "svelte-package",
 		"pub": "pnpm package && cd scripts && tsm clean-pkg.ts && cd ../package && pnpm publish",
-		"preview": "vite preview",
-		"prepare": "svelte-kit sync"
+		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@sveltejs/kit": "1.0.0-next.396",
-		"prettier": "^2.7.1",
-		"prettier-plugin-svelte": "^2.7.0",
-		"sass": "^1.54.0",
-		"svelte": "^3.49.0",
-		"svelte-check": "^2.8.0",
-		"svelte-confetti-explosion": "0.2.0",
+		"@sveltejs/kit": "1.0.0-next.480",
+		"@sveltejs/package": "1.0.0-next.3",
+		"sass": "^1.54.9",
+		"svelte": "^3.50.1",
 		"svelte-preprocess": "^4.10.7",
-		"svelte2tsx": "^0.4.14",
-		"terser": "^5.14.2",
+		"svelte2tsx": "^0.5.16",
 		"tslib": "^2.4.0",
 		"tsm": "^2.2.2",
-		"typescript": "^4.7.4",
-		"vite": "^3.0.3"
+		"typescript": "^4.8.3",
+		"vite": "3.1.0"
 	},
 	"type": "module"
 }
