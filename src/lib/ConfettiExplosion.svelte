@@ -20,7 +20,12 @@
 	const FLOOR_WIDTH = 1600; // horizontal spread of particles in pixels
 	const PARTICLE_COUNT = 150;
 	const DURATION = 3500;
-	const COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
+	const COLORS = ['#FFC700', '#F00', '#2E3191', '#41BBC7'];
+
+	const abs = Math.abs,
+		random = Math.random,
+		mathRound = Math.round,
+		max = Math.max;
 
 	const createParticles = (count: number, colors: string[]): Particle[] => {
 		const increment = 360 / count;
@@ -33,54 +38,43 @@
 	const waitFor = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 	// From here: https://stackoverflow.com/a/11832950
-	function round(num: number, precision: number = 2) {
-		return Math.round((num + Number.EPSILON) * 10 ** precision) / 10 ** precision;
-	}
-
-	function arraysEqual<ItemType>(a: ItemType[], b: ItemType[]) {
-		if (a === b) return true;
-		if (a == null || b == null) return false;
-		if (a.length !== b.length) return false;
-
-		for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
-
-		return true;
-	}
+	const round = (num: number, precision: number = 2) =>
+		mathRound((num + Number.EPSILON) * 10 ** precision) / 10 ** precision;
 
 	const mapRange = (value: number, x1: number, y1: number, x2: number, y2: number) =>
 		((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
 
-	const rotate = (degree: number, amount: number) => {
-		const result = degree + amount;
-		return result > 360 ? result - 360 : result;
-	};
+	const rotate = (degree: number, amount: number) =>
+		degree + amount > 360 ? degree + amount - 360 : degree + amount;
 
-	const coinFlip = () => Math.random() > 0.5;
+	const coinFlip = () => random() > 0.5;
 
-	// avoid this for circles, as it will have no visual effect
-	const zAxisRotation: Rotate3dTransform = [0, 0, 1];
+	// We can use the first three bits to flag which axis to rotate on.
+	// x = binary 100 = decimal 4
+	// y = binary 010 = decimal 2
+	// z = binary 001 = decimal 1
+	// We can use dual axis rotations (a bit more realistic) by combining the above bits.
+	// x & y = binary 110 = decimal 6
+	// x & z = binary 101 = decimal 5
+	// y & z = binary 011 = decimal 3
+	const POSSIBLE_ROTATION_TRANSFORMS = 6;
 
-	const rotationTransforms: Rotate3dTransform[] = [
-		// dual axis rotations (a bit more realistic)
-		[1, 1, 0],
-		[1, 0, 1],
-		[0, 1, 1],
-		// single axis rotations (a bit dumber)
-		[1, 0, 0],
-		[0, 1, 0],
-		zAxisRotation,
-	];
-
-	const shouldBeCircle = (rotationIndex: number) =>
-		!arraysEqual(rotationTransforms[rotationIndex], zAxisRotation) && coinFlip();
+	// avoid rotation on z axis (001 = 1) for circles as it has no visual effect.
+	const shouldBeCircle = (rotationTransform: number) => rotationTransform !== 1 && coinFlip();
 
 	const isUndefined = (value: any) => typeof value === 'undefined';
 
 	const error = (message: string) => {
 		console.error(message);
+		return false;
 	};
 
-	function validate(
+	const assertPositiveInteger = (val: any, name: string) =>
+		!isUndefined(val) && Number.isSafeInteger(val) && val < 0
+			? error(name + ' must be a positive integer')
+			: true;
+
+	const validate = (
 		particleCount: number,
 		duration: number,
 		colors: string[],
@@ -89,15 +83,15 @@
 		stageHeight: number,
 		stageWidth: number,
 		particlesShape: ParticleShape
-	) {
-		const isSafeInteger = Number.isSafeInteger;
-		if (!isUndefined(particleCount) && isSafeInteger(particleCount) && particleCount < 0) {
-			error('particleCount must be a positive integer');
-			return false;
-		}
-
-		if (!isUndefined(duration) && isSafeInteger(duration) && duration < 0) {
-			error('duration must be a positive integer');
+	) => {
+		if (
+			!assertPositiveInteger(particleCount, 'particleCount') ||
+			!assertPositiveInteger(duration, 'duration') ||
+			!assertPositiveInteger(particleSize, 'particleSize') ||
+			!assertPositiveInteger(force, 'force') ||
+			!assertPositiveInteger(stageHeight, 'floorHeight') ||
+			!assertPositiveInteger(stageWidth, 'floorWidth')
+		) {
 			return false;
 		}
 
@@ -105,47 +99,19 @@
 			!isUndefined(particlesShape) &&
 			!['mix', 'circles', 'rectangles'].includes(particlesShape)
 		) {
-			error('particlesShape should be either "mix" or "circles" or "rectangle"');
-			return false;
+			return error('particlesShape should be either "mix" or "circles" or "rectangle"');
 		}
 
 		if (!isUndefined(colors) && !Array.isArray(colors)) {
-			error('colors must be an array of strings');
-			return false;
+			return error('colors must be an array of strings');
 		}
 
-		if (!isUndefined(particleSize) && isSafeInteger(particleSize) && particleSize < 0) {
-			error('particleSize must be a positive integer');
-			return false;
-		}
-
-		if (!isUndefined(force) && isSafeInteger(force) && (force < 0 || force > 1)) {
-			error('force must be a positive integer and should be within 0 and 1');
-			return false;
-		}
-
-		if (
-			!isUndefined(stageHeight) &&
-			typeof stageHeight === 'number' &&
-			isSafeInteger(stageHeight) &&
-			stageHeight < 0
-		) {
-			error('floorHeight must be a positive integer');
-			return false;
-		}
-
-		if (
-			!isUndefined(stageWidth) &&
-			typeof stageWidth === 'number' &&
-			isSafeInteger(stageWidth) &&
-			stageWidth < 0
-		) {
-			error('floorWidth must be a positive integer');
-			return false;
+		if (force > 1) {
+			return error('force must be within 0 and 1');
 		}
 
 		return true;
-	}
+	};
 </script>
 
 <script lang="ts">
@@ -310,69 +276,56 @@
 	});
 
 	function confettiStyles(node: HTMLDivElement, { degree }: { degree: number }) {
-		// Get x landing point for it
-		const landingPoint = mapRange(
-			Math.abs(rotate(degree, 90) - 180),
-			0,
-			180,
-			-stageWidth / 2,
-			stageWidth / 2
-		);
-
 		// Crazy calculations for generating styles
-		const rotation = Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN;
-		const rotationIndex = Math.round(Math.random() * (rotationTransforms.length - 1));
-		const durationChaos = duration - Math.round(Math.random() * 1000);
-		const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY;
+		const rotationTransform = mathRound(random() * (POSSIBLE_ROTATION_TRANSFORMS - 1));
 		const isCircle =
 			particlesShape !== 'rectangles' &&
-			(particlesShape === 'circles' || shouldBeCircle(rotationIndex));
+			(particlesShape === 'circles' || shouldBeCircle(rotationTransform));
+
+		const setCSSVar = (key: string, val: string | number | string[]) =>
+			node.style.setProperty(key, val + '');
+
+		// Get x landing point for it
+		setCSSVar(
+			'--x-landing-point',
+			mapRange(abs(rotate(degree, 90) - 180), 0, 180, -stageWidth / 2, stageWidth / 2) + 'px'
+		);
+		setCSSVar('--duration-chaos', duration - mathRound(random() * 1e3) + 'ms');
 
 		// x-axis disturbance, roughly the distance the particle will initially deviate from its target
-		const x1 = shouldBeCrazy ? round(Math.random() * CRAZY_PARTICLE_CRAZINESS, 2) : 0;
-		const x2 = x1 * -1;
-		const x3 = x1;
+		const x1 =
+			random() < CRAZY_PARTICLES_FREQUENCY ? round(random() * CRAZY_PARTICLE_CRAZINESS, 2) : 0;
+		setCSSVar('--x1', x1);
+		setCSSVar('--x2', x1 * -1);
+		setCSSVar('--x3', x1);
 		// x-axis arc of explosion, so 90deg and 270deg particles have curve of 1, 0deg and 180deg have 0
-		const x4 = round(Math.abs(mapRange(Math.abs(rotate(degree, 90) - 180), 0, 180, -1, 1)), 4);
+		setCSSVar('--x4', round(abs(mapRange(abs(rotate(degree, 90) - 180), 0, 180, -1, 1)), 4));
 
 		// roughly how fast particle reaches end of its explosion curve
-		const y1 = round(Math.random() * BEZIER_MEDIAN, 4);
+		setCSSVar('--y1', round(random() * BEZIER_MEDIAN, 4));
 		// roughly maps to the distance particle goes before reaching free-fall
-		const y2 = round(Math.random() * force * (coinFlip() ? 1 : -1), 4);
+		setCSSVar('--y2', round(random() * force * (coinFlip() ? 1 : -1), 4));
 		// roughly how soon the particle transitions from explosion to free-fall
-		const y3 = BEZIER_MEDIAN;
+		setCSSVar('--y3', BEZIER_MEDIAN);
 		// roughly the ease of free-fall
-		const y4 = round(Math.max(mapRange(Math.abs(degree - 180), 0, 180, force, -force), 0), 4);
-
-		const setCSSVar = (key: string, val: string | number) => node.style.setProperty(key, val + '');
-
-		setCSSVar('--x-landing-point', `${landingPoint}px`);
-
-		setCSSVar('--duration-chaos', `${durationChaos}ms`);
-
-		setCSSVar('--x1', `${x1}`);
-		setCSSVar('--x2', `${x2}`);
-		setCSSVar('--x3', `${x3}`);
-		setCSSVar('--x4', `${x4}`);
-
-		setCSSVar('--y1', `${y1}`);
-		setCSSVar('--y2', `${y2}`);
-		setCSSVar('--y3', `${y3}`);
-		setCSSVar('--y4', `${y4}`);
+		setCSSVar('--y4', round(max(mapRange(abs(degree - 180), 0, 180, force, -force), 0), 4));
 
 		// set --width and --height here
 		setCSSVar(
 			'--width',
-			`${isCircle ? particleSize : Math.round(Math.random() * 4) + particleSize / 2}px`
+			(isCircle ? particleSize : mathRound(random() * 4) + particleSize / 2) + 'px'
 		);
 		setCSSVar(
 			'--height',
-			(isCircle ? particleSize : Math.round(Math.random() * 2) + particleSize) + 'px'
+			(isCircle ? particleSize : mathRound(random() * 2) + particleSize) + 'px'
 		);
 
-		setCSSVar('--rotation', `${rotationTransforms[rotationIndex].join()}`);
-		setCSSVar('--rotation-duration', `${rotation}ms`);
-		setCSSVar('--border-radius', `${isCircle ? '50%' : '0'}`);
+		setCSSVar('--rotation', rotationTransform.toString(2).padStart(3, '0').split(''));
+		setCSSVar(
+			'--rotation-duration',
+			random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN + 'ms'
+		);
+		setCSSVar('--border-radius', isCircle ? '50%' : 0);
 	}
 </script>
 
