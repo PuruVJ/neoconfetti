@@ -6,7 +6,7 @@ Let's party 🎊🎊 with Svelte! svelte-confetti-explosion allows you to show a
 
 ## Features
 
-- 🤏 Tiny - Less than 2.5KB min+gzip.
+- 🤏 Tiny - 2KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
 - 🧙‍♀️ Elegant - Use a Svelte component rather than setting things up in `onMount` hook.
 - 🗃️ Highly customizable - Offers tons of options that you can modify to get different behaviors.
@@ -205,7 +205,3 @@ Also, after the specified `duration`, all the confetti DOM nodes will be destroy
 
 MIT License
 © [Puru Vijay](https://twitter.com/puruvjdev)
-
-```
-
-```
