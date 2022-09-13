@@ -1,6 +1,4 @@
 <script lang="ts" context="module">
-	type Rotate3dTransform = [number, number, number];
-
 	type ParticleShape = 'mix' | 'circles' | 'rectangles';
 
 	const ROTATION_SPEED_MIN = 200; // minimum possible duration of single particle full rotation
@@ -243,13 +241,6 @@
 	let isVisible = true;
 
 	$: particles = createParticles(particleCount, colors);
-
-	// FOR FUN!!!
-	$: particleCount > 300 &&
-		console.log(
-			"[SVELTE-CONFETTI-EXPLOSION] That's a lot of confetti, you sure about that? A lesser number" +
-				' like 200 will still give off the party vibes while still not bricking the device 😉'
-		);
 
 	$: isValid = validate(
 		particleCount,
