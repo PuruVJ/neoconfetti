@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@sveltejs/kit': next
-  '@sveltejs/package': next
+  '@sveltejs/package': 1.0.0-next.3
   brotli-size: ^4.0.0
   sass: ^1.54.9
   svelte: ^3.50.1
@@ -15,7 +15,7 @@ specifiers:
 
 devDependencies:
   '@sveltejs/kit': 1.0.0-next.481_svelte@3.50.1+vite@3.1.0
-  '@sveltejs/package': 1.0.0-next.1_iprco5tylfmvffqgrvqxc46njy
+  '@sveltejs/package': 1.0.0-next.3_iprco5tylfmvffqgrvqxc46njy
   brotli-size: 4.0.0
   sass: 1.54.9
   svelte: 3.50.1
@@ -123,9 +123,9 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/package/1.0.0-next.1_iprco5tylfmvffqgrvqxc46njy:
-    resolution: {integrity: sha512-U8XBk6Cfy8MjKG41Uyo+fqBpdhu7xUSnhiCNoODRaAtWV02RZoLh+McXrsxEvqi/ycgymctlhJhssqDnD+E+FA==}
-    engines: {node: '>=16.9'}
+  /@sveltejs/package/1.0.0-next.3_iprco5tylfmvffqgrvqxc46njy:
+    resolution: {integrity: sha512-wlvxTScX0+c3KeUfgcELckLEu92Lz672Hh9zu3v4SDnByVwU6UNWhuLjff2osSVit/MLRIxe2XudnqZlmQj3OQ==}
+    engines: {node: '>=16.14'}
     hasBin: true
     peerDependencies:
       svelte: ^3.44.0
@@ -134,7 +134,7 @@ packages:
       kleur: 4.1.5
       sade: 1.8.1
       svelte: 3.50.1
-      svelte2tsx: 0.5.16_iprco5tylfmvffqgrvqxc46njy
+      svelte2tsx: 0.5.17_iprco5tylfmvffqgrvqxc46njy
     transitivePeerDependencies:
       - typescript
     dev: true
@@ -1158,8 +1158,8 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /svelte2tsx/0.5.16_iprco5tylfmvffqgrvqxc46njy:
-    resolution: {integrity: sha512-MwgpeRHfzP8T7NkFNT1JPhe9pCF4Dml2oSdjL2zNqvSprjA2BFgQuCNUg4R5qSz7AxVDJsiL/2hciCtVbXAT3A==}
+  /svelte2tsx/0.5.17_iprco5tylfmvffqgrvqxc46njy:
+    resolution: {integrity: sha512-4NAWuDhNu8AfBqivnbc9YZlWiHjLqoIPX6Fz2TwzzXM8a2qs3t6brAYa+C+vc2Gm5hNltDNJMmF0sC9D01PoCA==}
     peerDependencies:
       svelte: ^3.24
       typescript: ^4.1.2

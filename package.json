@@ -1,6 +1,6 @@
 {
 	"name": "svelte-confetti-explosion",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Confetti explosion in Svelte 🎉🎊",
 	"author": "Puru Vijay",
 	"license": "MIT",
@@ -34,7 +34,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "next",
-		"@sveltejs/package": "next",
+		"@sveltejs/package": "1.0.0-next.3",
 		"brotli-size": "^4.0.0",
 		"sass": "^1.54.9",
 		"svelte": "^3.50.1",

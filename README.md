@@ -6,7 +6,7 @@ Let's party 🎊🎊 with Svelte! svelte-confetti-explosion allows you to show a
 
 ## Features
 
-- 🤏 Tiny - 2KB min+br.
+- 🤏 Tiny - 1.95KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
 - 🧙‍♀️ Elegant - Use a Svelte component rather than setting things up in `onMount` hook.
 - 🗃️ Highly customizable - Offers tons of options that you can modify to get different behaviors.

@@ -6,6 +6,8 @@ const config = {
 	// for more information about preprocessors
 	preprocess: preprocess(),
 
+	kit: {},
+
 	package: {
 		emitTypes: true,
 		dir: 'package',

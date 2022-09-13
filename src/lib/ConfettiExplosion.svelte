@@ -7,28 +7,16 @@
 	const CRAZY_PARTICLE_CRAZINESS = 0.3; // 0-1 how crazy these crazy particles are
 	const BEZIER_MEDIAN = 0.5; // utility for mid-point bezier curves, to ensure smooth motion paths
 
-	const FORCE = 0.5; // 0-1 roughly the vertical force at which particles initially explode
-	const SIZE = 12; // max height for particle rectangles, diameter for particle circles
-	const FLOOR_HEIGHT = 800; // pixels the particles will fall from initial explosion point
-	const FLOOR_WIDTH = 1600; // horizontal spread of particles in pixels
-	const PARTICLE_COUNT = 150;
-	const DURATION = 3500;
-	const COLORS = ['#FFC700', '#F00', '#2E3191', '#41BBC7'];
-
 	const abs = Math.abs,
 		random = Math.random,
 		mathRound = Math.round,
 		max = Math.max;
 
-	const createParticles = (count: number, colors: string[]) => {
-		const increment = 360 / count;
-		return Array.from({ length: count }, (_, i) => ({
+	const createParticles = (count: number, colors: string[]) =>
+		Array.from({ length: count }, (_, i) => ({
 			color: colors[i % colors.length],
-			degree: i * increment,
+			degree: (i * 360) / count,
 		}));
-	};
-
-	const waitFor = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 	// From here: https://stackoverflow.com/a/11832950
 	const round = (num: number, precision: number = 2) =>
@@ -84,24 +72,16 @@
 			!assertPositiveInteger(force, 'force') ||
 			!assertPositiveInteger(stageHeight, 'floorHeight') ||
 			!assertPositiveInteger(stageWidth, 'floorWidth')
-		) {
+		)
 			return false;
-		}
 
-		if (
-			!isUndefined(particlesShape) &&
-			!['mix', 'circles', 'rectangles'].includes(particlesShape)
-		) {
+		if (!isUndefined(particlesShape) && !['mix', 'circles', 'rectangles'].includes(particlesShape))
 			return error('particlesShape should be either "mix" or "circles" or "rectangle"');
-		}
 
-		if (!isUndefined(colors) && !Array.isArray(colors)) {
+		if (!isUndefined(colors) && !Array.isArray(colors))
 			return error('colors must be an array of strings');
-		}
 
-		if (force > 1) {
-			return error('force must be within 0 and 1');
-		}
+		if (force > 1) return error('force must be within 0 and 1');
 
 		return true;
 	};
@@ -121,7 +101,7 @@
 	 * <ConfettiExplosion particleCount={200} />
 	 * ```
 	 */
-	export let particleCount = PARTICLE_COUNT;
+	export let particleCount = 150;
 
 	/**
 	 * Size of the confetti particles in pixels
@@ -134,7 +114,7 @@
 	 * <ConfettiExplosion particleSize={20} />
 	 * ```
 	 */
-	export let particleSize = SIZE;
+	export let particleSize = 12;
 
 	/**
 	 * Duration of the animation in milliseconds
@@ -147,7 +127,7 @@
 	 * <ConfettiExplosion duration={5000} />
 	 * ```
 	 */
-	export let duration = DURATION;
+	export let duration = 3500;
 
 	/**
 	 * Shape of particles to use. Can be `mix`, `circles` or `rectangles`
@@ -184,7 +164,7 @@
 	 * <ConfettiExplosion colors={['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7']} />
 	 * ```
 	 */
-	export let colors = COLORS;
+	export let colors = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
 
 	/**
 	 * Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum force.
@@ -197,7 +177,7 @@
 	 * <ConfettiExplosion force={0.8} />
 	 * ```
 	 */
-	export let force = FORCE;
+	export let force = 0.5;
 
 	/**
 	 * Height of the stage in pixels. Confetti will only fall within this height.
@@ -210,7 +190,7 @@
 	 * <ConfettiExplosion floorHeight={500} />
 	 * ```
 	 */
-	export let stageHeight = FLOOR_HEIGHT;
+	export let stageHeight = 800;
 
 	/**
 	 * Width of the stage in pixels. Confetti will only fall within this width.
@@ -223,7 +203,7 @@
 	 * <ConfettiExplosion floorWidth={1000} />
 	 * ```
 	 */
-	export let stageWidth = FLOOR_WIDTH;
+	export let stageWidth = 1600;
 
 	/**
 	 * Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to preserve memory.
@@ -253,13 +233,7 @@
 		particlesShape
 	);
 
-	onMount(async () => {
-		await waitFor(duration);
-
-		if (shouldDestroyAfterDone) {
-			isVisible = false;
-		}
-	});
+	onMount(() => setTimeout(() => shouldDestroyAfterDone && (isVisible = false), duration));
 
 	function confettiStyles(node: HTMLDivElement, degree: number) {
 		// Crazy calculations for generating styles
@@ -363,8 +337,7 @@
 
 		div {
 			position: absolute;
-			top: 0;
-			left: 0;
+			inset: 0;
 
 			animation: y-axis var(--duration-chaos) forwards
 				cubic-bezier(var(--y1), var(--y2), var(--y3), var(--y4));
