@@ -13,6 +13,8 @@
 	/>
 </div>
 
+<a href="/extra-page" hidden>Another page</a>
+
 <style lang="scss">
 	:global(body) {
 		overflow: hidden;
