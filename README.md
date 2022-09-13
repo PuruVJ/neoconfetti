@@ -12,7 +12,7 @@ Let's party 🎊🎊 with Svelte! svelte-confetti-explosion allows you to show a
 - 🗃️ Highly customizable - Offers tons of options that you can modify to get different behaviors.
 - 🖥️ SSR friendly - Works seamlessly in Sveltekit and other Server Side Rendering environments!
 
-[Try it in Svelte REPL](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
+[Try it in Svelte REPL](https://svelte.dev/repl/3451e5dd916f4d518ad3c6a79e89027f?version=3.50.1)
 
 ## Installing
 
