@@ -337,7 +337,8 @@
 
 		div {
 			position: absolute;
-			inset: 0;
+			top: 0;
+			left: 0;
 
 			animation: y-axis var(--duration-chaos) forwards
 				cubic-bezier(var(--y1), var(--y2), var(--y3), var(--y4));
