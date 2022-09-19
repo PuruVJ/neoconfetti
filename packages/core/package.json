@@ -1,0 +1,29 @@
+{
+	"name": "@neoconfetti/core",
+	"private": true,
+	"version": "0.1.0",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist/*"
+	],
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"module": "./dist/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"dev": "rollup -cw",
+		"build": "rollup -c",
+		"size": "brotli-size dist/index.js"
+	},
+	"description": "Let's party 🎊🎊 with Svelte! svelte-confetti-explosion allows you to show an awesome confetti explosion on your page, with Svelte!",
+	"keywords": [],
+	"author": "Puru Vijay",
+	"license": "MIT"
+}
