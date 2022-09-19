@@ -11,7 +11,10 @@
 }
 
 @keyframes rotation {
-	to {
+	50% {
+		transform: rotate3d(var(--half-rotation), 180deg);
+	}
+	100% {
 		transform: rotate3d(var(--rotation), 360deg);
 	}
 }

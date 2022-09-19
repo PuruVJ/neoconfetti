@@ -209,10 +209,15 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 			(isCircle ? particleSize : mathRound(random() * 2) + particleSize) + 'px'
 		);
 
-		setCSSVar('--rotation', rotationTransform.toString(2).padStart(3, '0').split(''));
+		const rotation = rotationTransform.toString(2).padStart(3, '0').split('');
+		setCSSVar(
+			'--half-rotation',
+			rotation.map((n) => +n / 2 + '')
+		);
+		setCSSVar('--rotation', rotation);
 		setCSSVar(
 			'--rotation-duration',
-			random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN + 'ms'
+			round(random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN) + 'ms'
 		);
 		setCSSVar('--border-radius', isCircle ? '50%' : 0);
 	}

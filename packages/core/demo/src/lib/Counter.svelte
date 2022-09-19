@@ -11,7 +11,7 @@
 	});
 </script>
 
-<div use:confetti />
+<div use:confetti={{ shouldDestroyAfterDone: false }} />
 
 <!-- <ConfettiExplosion shouldDestroyAfterDone={false} particleCount={4} /> -->
 <style>
