@@ -8,15 +8,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/neocrap/neoconfetti.git"
+		"url": "git+https://github.com/puruvj/neoconfetti.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/neocrap/neoconfetti/issues"
+		"url": "https://github.com/puruvj/neoconfetti/issues"
 	},
-	"homepage": "https://github.com/neocrap/neoconfetti#readme",
+	"homepage": "https://github.com/puruvj/neoconfetti#readme",
 	"devDependencies": {
 		"@rollup/plugin-node-resolve": "^14.1.0",
 		"@rollup/pluginutils": "^4.2.1",
