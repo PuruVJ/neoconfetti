@@ -9,7 +9,7 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@neoconfetti/core": "workspace:0.1.0",
+		"@neoconfetti/core": "workspace:*",
 		"@sveltejs/vite-plugin-svelte": "^1.0.2",
 		"@tsconfig/svelte": "^3.0.0",
 		"svelte": "^3.49.0",

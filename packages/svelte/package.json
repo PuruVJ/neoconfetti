@@ -1,0 +1,52 @@
+{
+	"name": "@neoconfetti/svelte",
+	"version": "1.0.0",
+	"description": "Svelte Action to add dragging to your apps 😉",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist/*"
+	],
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"module": "./dist/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"dev": "rollup -cw",
+		"build": "rollup -c ",
+		"pub": "pnpm build && pnpm publish --no-git-checks --access public",
+		"pub:dry": "pnpm build && pnpm publish --dry-run --no-git-checks --access public",
+		"size": "echo 'Svelte size:' && brotli-size dist/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/puruvj/neoconfetti.git"
+	},
+	"keywords": [
+		"confetti",
+		"party",
+		"fun",
+		"badass",
+		"badassery",
+		"svelte",
+		"sveltekit",
+		"small",
+		"tiny",
+		"performant"
+	],
+	"author": "Puru Vijay",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/puruvj/neoconfetti/issues"
+	},
+	"homepage": "https://github.com/puruvj/neoconfetti/tree/main/packages/svelte#readme",
+	"devDependencies": {
+		"@neoconfetti/core": "workspace:*"
+	}
+}
