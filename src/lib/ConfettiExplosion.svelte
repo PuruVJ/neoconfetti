@@ -233,7 +233,10 @@
 		particlesShape
 	);
 
-	onMount(() => setTimeout(() => shouldDestroyAfterDone && (isVisible = false), duration));
+	onMount(() => {
+		let timeoutId = setTimeout(() => shouldDestroyAfterDone && (isVisible = false), duration);
+		return () => clearTimeout(timeoutId);
+	});
 
 	function confettiStyles(node: HTMLDivElement, degree: number) {
 		// Crazy calculations for generating styles
