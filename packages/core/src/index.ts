@@ -323,3 +323,5 @@ const validate = ({
 
 	if (force! > 1) throw new Error('force must be within 0 and 1');
 };
+
+export type { ParticleShape as ConfettiParticleShape, ConfettiOptions };
