@@ -106,7 +106,7 @@ type ConfettiOptions = {
 	 * @example
 	 *
 	 * ```svelte
-	 * <ConfettiExplosion floorHeight={500} />
+	 * <ConfettiExplosion stageHeight={500} />
 	 * ```
 	 */
 
@@ -120,7 +120,7 @@ type ConfettiOptions = {
 	 * @example
 	 *
 	 * ```svelte
-	 * <ConfettiExplosion floorWidth={1000} />
+	 * <ConfettiExplosion stageWidth={1000} />
 	 * ```
 	 */
 	stageWidth?: number;
@@ -159,7 +159,7 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 
 	appendStyles(styles);
 	node.classList.add(stylesMap.container);
-	node.style.setProperty('--floor-height', stageHeight + 'px');
+	node.style.setProperty('--stage-height', stageHeight + 'px');
 
 	let particles = createParticles(particleCount, colors);
 	let nodes = createParticleNodes(node, particles);
@@ -264,7 +264,7 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 			if (shouldDestroyAfterDone && !newOptions.shouldDestroyAfterDone) clearTimeout(timer);
 
 			// Update stageHeight
-			node.style.setProperty('--floor-height', (newOptions.stageHeight ?? stageHeight) + 'px');
+			node.style.setProperty('--stage-height', (newOptions.stageHeight ?? stageHeight) + 'px');
 
 			duration = newOptions.duration ?? duration;
 			force = newOptions.force ?? force;
@@ -274,6 +274,10 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 			shouldDestroyAfterDone = newOptions.shouldDestroyAfterDone ?? shouldDestroyAfterDone;
 			stageHeight = newOptions.stageHeight ?? stageHeight;
 			stageWidth = newOptions.stageWidth ?? stageWidth;
+		},
+
+		destroy() {
+			clearTimeout(timer);
 		},
 	};
 };
@@ -370,8 +374,8 @@ const validate = ({
 	assertPositiveInteger(duration, 'duration');
 	assertPositiveInteger(particleSize, 'particleSize');
 	assertPositiveInteger(force, 'force');
-	assertPositiveInteger(stageHeight, 'floorHeight');
-	assertPositiveInteger(stageWidth, 'floorWidth');
+	assertPositiveInteger(stageHeight, 'stageHeight');
+	assertPositiveInteger(stageWidth, 'stageWidth');
 
 	if (!isUndefined(particleShape) && !/^(mix|circles|rectangles)$/i.test(particleShape!))
 		throw new Error('particlesShape should be either "mix" or "circles" or "rectangle"');
