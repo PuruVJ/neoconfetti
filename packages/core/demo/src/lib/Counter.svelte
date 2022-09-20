@@ -4,9 +4,13 @@
 
 	let colors: string[] | undefined = undefined;
 
-	let render = {};
+	let showConfetti = false;
 
 	onMount(() => {
+		setTimeout(() => {
+			showConfetti = true;
+		}, 500);
+
 		setTimeout(() => {
 			// render = {};
 			colors = ['#eee', 'black'];
@@ -14,9 +18,9 @@
 	});
 </script>
 
-{#key render}
-	<div use:confetti={{ shouldDestroyAfterDone: false, colors }} />
-{/key}
+{#if showConfetti}
+	<div use:confetti={{ destroyAfterDone: false, colors }} />
+{/if}
 
 <!-- <ConfettiExplosion shouldDestroyAfterDone={false} particleCount={4} /> -->
 <style>

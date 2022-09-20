@@ -13,40 +13,8 @@ type ConfettiOptions = {
 	 * Number of confetti particles to create
 	 *
 	 * @default 150
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion particleCount={200} />
-	 * ```
 	 */
 	particleCount?: number;
-
-	/**
-	 * Size of the confetti particles in pixels
-	 *
-	 * @default 12
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion particleSize={20} />
-	 * ```
-	 */
-	particleSize?: number;
-
-	/**
-	 * Duration of the animation in milliseconds
-	 *
-	 * @default 3500
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion duration={5000} />
-	 * ```
-	 */
-	duration?: number;
 
 	/**
 	 * Shape of particles to use. Can be `mix`, `circles` or `rectangles`
@@ -56,32 +24,28 @@ type ConfettiOptions = {
 	 * `rectangles` will use only rectangles
 	 *
 	 * @default 'mix'
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion particlesShape='circles' />
-	 * ```
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion particlesShape='rectangles' />
-	 * ```
 	 */
 	particleShape?: ParticleShape;
+
+	/**
+	 * Size of the confetti particles in pixels
+	 *
+	 * @default 12
+	 */
+	particleSize?: number;
+
+	/**
+	 * Duration of the animation in milliseconds
+	 *
+	 * @default 3500
+	 */
+	duration?: number;
 
 	/**
 	 * Colors to use for the confetti particles. Pass string array of colors. Can use hex colors, named colors,
 	 * CSS Variables, literally anything valid in plain CSS.
 	 *
 	 * @default ['#FFC700', '#FF0000', '#2E3191', '#41BBC7']
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion colors={['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7']} />
-	 * ```
 	 */
 	colors?: string[];
 
@@ -89,12 +53,6 @@ type ConfettiOptions = {
 	 * Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum force.
 	 *
 	 * @default 0.5
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion force={0.8} />
-	 * ```
 	 */
 	force?: number;
 
@@ -102,12 +60,6 @@ type ConfettiOptions = {
 	 * Height of the stage in pixels. Confetti will only fall within this height.
 	 *
 	 * @default 800
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion stageHeight={500} />
-	 * ```
 	 */
 
 	stageHeight?: number;
@@ -116,12 +68,6 @@ type ConfettiOptions = {
 	 * Width of the stage in pixels. Confetti will only fall within this width.
 	 *
 	 * @default 1600
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion stageWidth={1000} />
-	 * ```
 	 */
 	stageWidth?: number;
 
@@ -129,14 +75,8 @@ type ConfettiOptions = {
 	 * Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to preserve memory.
 	 *
 	 * @default true
-	 *
-	 * @example
-	 *
-	 * ```svelte
-	 * <ConfettiExplosion shouldDestroyAfterDone={false} />
-	 * ```
 	 */
-	shouldDestroyAfterDone?: boolean;
+	destroyAfterDone?: boolean;
 };
 
 export const confetti: Action<HTMLElement, ConfettiOptions> = (
@@ -152,7 +92,7 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 		particleCount = 150,
 		particleShape = 'mix',
 		particleSize = 12,
-		shouldDestroyAfterDone = true,
+		destroyAfterDone = true,
 		stageHeight = 800,
 		stageWidth = 1600,
 	} = options;
@@ -222,15 +162,11 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 		setCSSVar('--border-radius', isCircle ? '50%' : 0);
 	}
 
-	function applyConfettiStyles() {
-		for (const [i, node] of Object.entries(nodes)) confettiStyles(node, particles[+i].degree);
-	}
-
-	applyConfettiStyles();
+	for (const [i, node] of Object.entries(nodes)) confettiStyles(node, particles[+i].degree);
 
 	let timer: ReturnType<typeof setTimeout>;
 	Promise.resolve().then(
-		() => (timer = setTimeout(() => shouldDestroyAfterDone && (node.innerHTML = ''), duration))
+		() => (timer = setTimeout(() => destroyAfterDone && (node.innerHTML = ''), duration))
 	);
 
 	return {
@@ -239,6 +175,7 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 
 			const newParticleCount = newOptions.particleCount ?? particleCount;
 			const newColors = newOptions.colors ?? colors;
+			const newStageHeight = newOptions.stageHeight ?? stageHeight;
 
 			particles = createParticles(newParticleCount, newColors);
 
@@ -261,18 +198,19 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 			}
 
 			// Dont destroy component if shouldDestroyAfterDone is false now
-			if (shouldDestroyAfterDone && !newOptions.shouldDestroyAfterDone) clearTimeout(timer);
+			if (destroyAfterDone && !newOptions.destroyAfterDone) clearTimeout(timer);
 
 			// Update stageHeight
-			node.style.setProperty('--stage-height', (newOptions.stageHeight ?? stageHeight) + 'px');
+			node.style.setProperty('--stage-height', newStageHeight + 'px');
 
+			colors = newColors;
 			duration = newOptions.duration ?? duration;
 			force = newOptions.force ?? force;
 			particleCount = newParticleCount;
 			particleShape = newOptions.particleShape ?? particleShape;
 			particleSize = newOptions.particleSize ?? particleSize;
-			shouldDestroyAfterDone = newOptions.shouldDestroyAfterDone ?? shouldDestroyAfterDone;
-			stageHeight = newOptions.stageHeight ?? stageHeight;
+			destroyAfterDone = newOptions.destroyAfterDone ?? destroyAfterDone;
+			stageHeight = newStageHeight;
 			stageWidth = newOptions.stageWidth ?? stageWidth;
 		},
 
