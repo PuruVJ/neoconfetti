@@ -1,17 +1,13 @@
 {
 	"compilerOptions": {
-		"module": "ESNext",
+		"module": "ES2020",
 		"target": "ESNext",
 		"declaration": true,
 		"emitDeclarationOnly": true,
-		// "declarationDir": "dist/",
-		"allowJs": true,
-		"checkJs": true,
-		"resolveJsonModule": true,
-
+		"declarationDir": "dist/",
 		"strict": true,
 		"esModuleInterop": true,
 		"moduleResolution": "Node"
 	},
-	"include": ["*"]
+	"files": ["./src/index.ts"]
 }

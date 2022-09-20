@@ -1,49 +1,34 @@
 {
 	"name": "svelte-confetti-explosion",
-	"version": "0.4.1",
-	"description": "Confetti explosion in Svelte 🎉🎊",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/puruvj/neoconfetti.git"
+	},
+	"keywords": [],
 	"author": "Puru Vijay",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/PuruVJ/svelte-confetti-explosion/issues"
+		"url": "https://github.com/puruvj/neoconfetti/issues"
 	},
-	"sideEffects": false,
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/PuruVJ/svelte-confetti-explosion.git"
-	},
-	"svelte": "index.js",
-	"keywords": [
-		"confetti",
-		"party",
-		"fun",
-		"badass",
-		"badassery",
-		"svelte",
-		"sveltekit",
-		"small",
-		"tiny",
-		"performant"
-	],
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build -l silent && cd scripts && tsm size.ts",
-		"package": "svelte-package",
-		"pub": "pnpm package && cd scripts && tsm clean-pkg.ts && cd ../package && pnpm publish",
-		"preview": "vite preview"
-	},
+	"homepage": "https://github.com/puruvj/neoconfetti#readme",
 	"devDependencies": {
-		"@sveltejs/kit": "next",
-		"@sveltejs/package": "1.0.0-next.3",
-		"brotli-size": "^4.0.0",
-		"sass": "^1.54.9",
+		"@rollup/plugin-node-resolve": "^14.1.0",
+		"@rollup/pluginutils": "^4.2.1",
+		"@types/node": "^18.7.18",
+		"brotli-size-cli": "^1.0.0",
+		"esbuild": "^0.15.8",
+		"lightningcss": "^1.15.1",
+		"rollup": "^2.79.0",
+		"rollup-plugin-dts": "^4.2.2",
+		"rollup-plugin-esbuild": "^4.10.1",
+		"rollup-plugin-terser": "^7.0.2",
 		"svelte": "^3.50.1",
-		"svelte-preprocess": "^4.10.7",
-		"terser": "^5.15.0",
-		"tslib": "^2.4.0",
-		"tsm": "^2.2.2",
-		"typescript": "^4.8.3",
-		"vite": "3.1.0"
-	},
-	"type": "module"
+		"typescript": "^4.8.3"
+	}
 }
