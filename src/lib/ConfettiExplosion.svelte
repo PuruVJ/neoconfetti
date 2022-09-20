@@ -70,8 +70,8 @@
 			!assertPositiveInteger(duration, 'duration') ||
 			!assertPositiveInteger(particleSize, 'particleSize') ||
 			!assertPositiveInteger(force, 'force') ||
-			!assertPositiveInteger(stageHeight, 'floorHeight') ||
-			!assertPositiveInteger(stageWidth, 'floorWidth')
+			!assertPositiveInteger(stageHeight, 'stageHeight') ||
+			!assertPositiveInteger(stageWidth, 'stageWidth')
 		)
 			return false;
 
@@ -187,10 +187,10 @@
 	 * @example
 	 *
 	 * ```svelte
-	 * <ConfettiExplosion floorHeight={500} />
+	 * <ConfettiExplosion stageHeight={500} />
 	 * ```
 	 */
-	export let stageHeight = 800;
+	export let stageHeight = 500;
 
 	/**
 	 * Width of the stage in pixels. Confetti will only fall within this width.
@@ -200,7 +200,7 @@
 	 * @example
 	 *
 	 * ```svelte
-	 * <ConfettiExplosion floorWidth={1000} />
+	 * <ConfettiExplosion stageWidth={1000} />
 	 * ```
 	 */
 	export let stageWidth = 1600;
@@ -290,7 +290,7 @@
 </script>
 
 {#if isVisible && isValid}
-	<div class="container" style:--floor-height="{stageHeight}px">
+	<div class="container" style:--stage-height="{stageHeight}px">
 		{#each particles as { color, degree }}
 			<div class="particle" use:confettiStyles={degree}>
 				<div style:--bgcolor={color} />
@@ -302,7 +302,7 @@
 <style lang="scss">
 	@keyframes y-axis {
 		to {
-			transform: translate3d(0, var(--floor-height), 0);
+			transform: translate3d(0, var(--stage-height), 0);
 		}
 	}
 
