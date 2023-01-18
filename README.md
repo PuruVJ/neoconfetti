@@ -8,9 +8,9 @@ This is a monorepo containing the following packages:
 
 ## Roadmap
 
-- [x] @neodrag/svelte
+- [x] @neoconfetti/svelte
 - [ ] @neoconfetti/react
 - [ ] @neoconfetti/vue
 - [ ] @neoconfetti/solid
-- [ ] @neodrag/lit
-- [ ] @neodrag/vanilla
+- [ ] @neoconfetti/lit
+- [ ] @neoconfetti/vanilla
