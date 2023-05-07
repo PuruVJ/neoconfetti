@@ -197,7 +197,7 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 				nodes = createParticleNodes(node, particles);
 			}
 
-			// Dont destroy component if shouldDestroyAfterDone is false now
+			// Dont destroy component if destroyAfterDone is false now
 			if (destroyAfterDone && !newOptions.destroyAfterDone) clearTimeout(timer);
 
 			// Update stageHeight

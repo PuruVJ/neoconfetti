@@ -74,7 +74,7 @@ Size of the confetti particles in pixels
 **Example:**
 
 ```svelte
-<div use:confetti={{ particleSize:20 }} />
+<div use:confetti={{ particleSize: 20 }} />
 ```
 
 ### particleShape
@@ -165,7 +165,7 @@ Width of the stage in pixels. Confetti will only fall within this width.
 <div use:confetti={{ stageWidth: 500 }} />
 ```
 
-### shouldDestroyAfterDone
+### destroyAfterDone
 
 Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to free up memory.
 

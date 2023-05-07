@@ -22,6 +22,6 @@
 	<div use:confetti={{ destroyAfterDone: false, colors }} />
 {/if}
 
-<!-- <ConfettiExplosion shouldDestroyAfterDone={false} particleCount={4} /> -->
+<!-- <ConfettiExplosion destroyAfterDone={false} particleCount={4} /> -->
 <style>
 </style>
