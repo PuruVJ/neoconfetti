@@ -1,94 +1,198 @@
-<p align="center">
-<a href="https://www.neodrag.dev"><img src="https://www.neodrag.dev/logo.svg" height="150" /></a>
-</p>
+# @neoconfetti/vue
 
-<h1 align="center">
-@neodrag/vue
-</h1>
+Let's party 🎊🎊 with Vue! `@neoconfetti/vue` allows you to show an awesome confetti explosion on your page, with Vue!
 
-<h2 align="center">
-One draggable to rule em all
-</h2>
-
-<p align="center">A lightweight Vue directive to make your elements draggable.</p>
-
-<p align="center">
-  <a href="https://www.npmjs.com/package/@neodrag/vue"><img src="https://img.shields.io/npm/v/@neodrag/vue?color=42b883&label="></a>
-<p>
-
-<p align="center"><a href="https://www.neodrag.dev/docs/vue">Getting Started</a></p>
+> This library is the port of the amazing [react-confetti-explosion](https://www.npmjs.com/package//react-confetti-explosion) package. All the logic is from that package only, optimisation and Vue code are mine 😉
 
 ## Features
 
-- 🤏 Tiny - Only 1.77KB min+brotli.
+- 🤏 Tiny - 1.45KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
-- 🧙‍♀️ Elegant - Vue directive, to keep the usage simple, elegant and straightforward.
-- 🗃️ Highly customizable - Offers tons of options that you can modify to get different behavior.
-- ⚛️ Reactive - Change options passed to it on the fly, it will **just work 🙂**
+- 🧙‍♀️ Elegant - Vue directive `v-confetti` rather than setting things up in `mounted()` hook.
+- 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.
+- 🖥️ SSR friendly - Works seamlessly in NuxtJS, VitePress and other Server Side Rendering environments!
 
-[Try it in Stackblitz](https://stackblitz.com/edit/vitejs-vite-2pg1r1?file=src%2FApp.jsx)
+<!-- TODO: [Try it in Svelte REPL](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24) -->
 
 ## Installing
 
 ```bash
-pnpm add @neodrag/vue
+# pnpm
+pnpm add @neoconfetti/vue
 
 # npm
-npm install @neodrag/vue
+npm install @neoconfetti/vue
 
 # yarn
-yarn add @neodrag/vue
+yarn add @neoconfetti/vue
 ```
 
 ## Usage
 
-Basic usage
+Basic usage:
 
 ```vue
-<script setup>
-import { vDraggable } from '@neodrag/vue';
+<script>
+import { vConfetti } from '@neoconfetti/vue';
 </script>
 
-<template>
-	<div v-draggable>I am draggable</div>
-</template>
+<div v-confetti />
 ```
 
-With options
+Customizing behavior with options:
 
 ```vue
-<script setup>
-import { vDraggable } from '@neodrag/vue';
-</script>
-
-<template>
-	<div v-draggable="{ axis: 'x', grid: [10, 10] }">I am draggable</div>
-</template>
+<div v-confetti="{ particleCount: 200, force: 0.3 }" />
 ```
 
-Defining options elsewhere with typescript
+## Props
+
+There's tons of options available for this package. All of them are already documented within the code itself, so you'll never have to leave the code editor.
+
+### particleCount
+
+Number of confetti particles to create.
+
+**type:** `number`
+
+**Default value:** 150
+
+**Example:**
 
 ```vue
-<script setup lang="ts">
-import { vDraggable, type DragOptions } from '@neodrag/vue';
-
-const options: DragOptions = {
-	axis: 'y',
-	bounds: 'parent',
-};
-</script>
-
-<template>
-	<div v-draggable="options">I am draggable</div>
-</template>
+<div v-confetti="{ particleCount: 200 }" />
 ```
 
-<a href="https://www.neodrag.dev/docs/vue" style="font-size: 2rem">Read the docs</a>
+### particleSize
 
-## Credits
+Size of the confetti particles in pixels
 
-Inspired from the amazing [react-draggable](https://github.com/react-grid-layout/react-draggable) library, and implements a similar API, but 3x smaller.
+**type:** `number`
 
-# License
+**Default value:** 12
 
-MIT License &copy; Puru Vijay
+**Example:**
+
+```vue
+<div v-confetti="{ particleSize: 20 }" />
+```
+
+### particleShape
+
+Shape of particles to use. Can be `mix`, `circles` or `rectangles`
+
+`mix` will use both circles and rectangles
+`circles` will use only circles
+`rectangles` will use only rectangles
+
+**type:** `'mix' | 'circles' | 'rectangles'`
+
+**Default value:** `'mix'`
+
+**Example:**
+
+```vue
+<div v-confetti="{ particleShape: 'circles' }" />
+```
+
+### duration
+
+Duration of the animation in milliseconds
+
+**type:** `number`
+
+**Default value:** 3500
+
+**Example:**
+
+```vue
+<div v-confetti="{ duration: 5000 }" />
+```
+
+### colors
+
+Colors to use for the confetti particles. Pass string array of colors. Can use hex colors, named colors, CSS Variables, literally anything valid in plain CSS.
+
+**type:** `Array<string>`
+
+**Default value:** `['#FFC700', '#FF0000', '#2E3191', '#41BBC7']`
+
+**Example:**
+
+```vue
+<div v-confetti="{ colors: ['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7'] }" />
+```
+
+### force
+
+Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum force. Will error out if you pass a value outside of this range.
+
+**type:** `number`
+
+**Default value:** 0.5
+
+**Example:**
+
+```vue
+<div v-confetti="{ force: 0.3 }" />
+```
+
+### stageHeight
+
+Height of the stage in pixels. Confetti will only fall within this height.
+
+**type:** `number`
+
+**Default value:** 800
+
+**Example:**
+
+```vue
+<div v-confetti="{ stageHeight: 500 }" />
+```
+
+### stageWidth
+
+Width of the stage in pixels. Confetti will only fall within this width.
+
+**type:** `number`
+
+**Default value:** 1600
+
+**Example:**
+
+```vue
+<div v-confetti="{ stageWidth: 500 }" />
+```
+
+### destroyAfterDone
+
+Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to free up memory.
+
+**type:** `boolean`
+
+**Default value:** `true`
+
+**Example:**
+
+```vue
+<div v-confetti="{ destroyAfterDone: false }" />
+```
+
+<!--
+## Examples
+
+[Basic Example](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
+
+[Confetti where mouse click](https://svelte.dev/repl/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.50.1) -->
+
+## Performance
+
+This library functions by creating 2 DOM nodes for every single confetti. By default, if the `particlesCount` is set to 150, it will create 300 nodes. This is a lot of nodes. For most devices, these many nodes are not a big issue, but I recommend checking your target devices' performance if you choose to go with a higher number, like 400 or 500.
+
+Also, after the specified `duration`, all the confetti DOM nodes will be destroyed. This is to free up memory. If you wish to keep them around, set `destroyAfterDone` to `false`.
+
+## License
+
+MIT License
+© [Puru Vijay](https://twitter.com/puruvjdev)
