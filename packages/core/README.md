@@ -165,7 +165,7 @@ Width of the stage in pixels. Confetti will only fall within this width.
 <ConfettiExplosion stageWidth={500} />
 ```
 
-### shouldDestroyAfterDone
+### destroyAfterDone
 
 Whether or not destroy all confetti nodes after the `duration` period has passed. By default it destroys all nodes, to free up memory.
 
@@ -176,7 +176,7 @@ Whether or not destroy all confetti nodes after the `duration` period has passed
 **Example:**
 
 ```svelte
-<ConfettiExplosion shouldDestroyAfterDone={false} />
+<ConfettiExplosion destroyAfterDone={false} />
 ```
 
 ## Style Props
@@ -199,7 +199,7 @@ You can specify two style props on the component: `--x` and `--y`. These will sh
 
 This library functions by creating 2 DOM nodes for every single confetti. By default, if the `particlesCount` is set to 150, it will create 300 nodes. This is a lot of nodes. For most devices, these many nodes are not a big issue, but I recommend checking your target devices' performance if you choose to go with a higher number, like 400 or 500.
 
-Also, after the specified `duration`, all the confetti DOM nodes will be destroyed. This is to free up memory. If you wish to keep them around, set `shouldDestroyAfterDone` to `false`.
+Also, after the specified `duration`, all the confetti DOM nodes will be destroyed. This is to free up memory. If you wish to keep them around, set `destroyAfterDone` to `false`.
 
 ## License
 
