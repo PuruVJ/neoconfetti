@@ -1,7 +1,5 @@
-import stylesMap from './style.module.css';
 import styles from './style.module.css?inline';
-
-import type { Action } from 'svelte/action';
+import { container as cContainer, particle as cParticle } from './style.module.css?map';
 
 type ParticleShape = 'mix' | 'circles' | 'rectangles';
 type Particle = {
@@ -79,12 +77,7 @@ type ConfettiOptions = {
 	destroyAfterDone?: boolean;
 };
 
-export const confetti: Action<HTMLElement, ConfettiOptions> = (
-	node: HTMLElement,
-	options: ConfettiOptions = {}
-) => {
-	validate(options);
-
+export function confetti(node: HTMLElement, options: ConfettiOptions = {}) {
 	let {
 		colors = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'],
 		duration = 3500,
@@ -98,8 +91,9 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 	} = options;
 
 	appendStyles(styles);
-	node.classList.add(stylesMap.container);
-	node.style.setProperty('--stage-height', stageHeight + 'px');
+	node.classList.add(cContainer);
+	// stage-height
+	node.style.setProperty('--sh', stageHeight + 'px');
 
 	let particles = createParticles(particleCount, colors);
 	let nodes = createParticleNodes(node, particles);
@@ -116,10 +110,15 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 
 		// Get x landing point for it
 		setCSSVar(
-			'--x-landing-point',
+			// x landing point
+			'--xlp',
 			mapRange(abs(rotate(degree, 90) - 180), 0, 180, -stageWidth / 2, stageWidth / 2) + 'px'
 		);
-		setCSSVar('--duration-chaos', duration - mathRound(random() * 1e3) + 'ms');
+		setCSSVar(
+			// duration chaos
+			'--dc',
+			duration - mathRound(random() * 1e3) + 'ms'
+		);
 
 		// x-axis disturbance, roughly the distance the particle will initially deviate from its target
 		const x1 =
@@ -141,25 +140,38 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 
 		// set --width and --height here
 		setCSSVar(
-			'--width',
+			// --width
+			'--w',
 			(isCircle ? particleSize : mathRound(random() * 4) + particleSize / 2) + 'px'
 		);
 		setCSSVar(
-			'--height',
+			// --height
+			'--h',
 			(isCircle ? particleSize : mathRound(random() * 2) + particleSize) + 'px'
 		);
 
 		const rotation = rotationTransform.toString(2).padStart(3, '0').split('');
 		setCSSVar(
-			'--half-rotation',
-			rotation.map((n) => +n / 2 + '')
+			// --half-rotation
+			'--hr',
+			rotation.map((n) => +n / 2 + '').join(' ')
 		);
-		setCSSVar('--rotation', rotation);
+
 		setCSSVar(
-			'--rotation-duration',
+			// --rotation
+			'--r',
+			rotation.join(' ')
+		);
+		setCSSVar(
+			// --rotation-duration
+			'--rd',
 			round(random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN) + 'ms'
 		);
-		setCSSVar('--border-radius', isCircle ? '50%' : 0);
+		setCSSVar(
+			// --border-radius
+			'--br',
+			isCircle ? '50%' : 0
+		);
 	}
 
 	for (const [i, node] of Object.entries(nodes)) confettiStyles(node, particles[+i].degree);
@@ -171,8 +183,6 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 
 	return {
 		update(newOptions: ConfettiOptions) {
-			validate(newOptions);
-
 			const newParticleCount = newOptions.particleCount ?? particleCount;
 			const newColors = newOptions.colors ?? colors;
 			const newStageHeight = newOptions.stageHeight ?? stageHeight;
@@ -186,7 +196,11 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 			)
 				// In this, case only update the particles' colors, on every DOM element
 				for (const [i, { color }] of Object.entries(particles))
-					nodes[+i].style.setProperty('--bgcolor', color);
+					nodes[+i].style.setProperty(
+						// bgcolor
+						'--bgc',
+						color
+					);
 
 			if (newParticleCount !== particleCount) {
 				// Recreate all particles
@@ -201,7 +215,7 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 			if (destroyAfterDone && !newOptions.destroyAfterDone) clearTimeout(timer);
 
 			// Update stageHeight
-			node.style.setProperty('--stage-height', newStageHeight + 'px');
+			node.style.setProperty('--sh', newStageHeight + 'px');
 
 			colors = newColors;
 			duration = newOptions.duration ?? duration;
@@ -218,7 +232,7 @@ export const confetti: Action<HTMLElement, ConfettiOptions> = (
 			clearTimeout(timer);
 		},
 	};
-};
+}
 
 function appendStyles(styles: string) {
 	const style = element('style');
@@ -232,8 +246,8 @@ function createParticleNodes(node: HTMLElement, particles: Particle[] = []) {
 
 	for (const { color } of particles) {
 		const particleNode = element('div');
-		particleNode.className = stylesMap.particle;
-		particleNode.style.setProperty('--bgcolor', color);
+		particleNode.className = cParticle;
+		particleNode.style.setProperty('--bgc', color);
 
 		const innerParticle = element('div');
 
@@ -291,37 +305,4 @@ const POSSIBLE_ROTATION_TRANSFORMS = 6;
 // avoid rotation on z axis (001 = 1) for circles as it has no visual effect.
 const shouldBeCircle = (rotationTransform: number) => rotationTransform !== 1 && coinFlip();
 
-const isUndefined = (value: any) => typeof value === 'undefined';
-
-const assertPositiveInteger = (val: any, name: string) => {
-	if (!isUndefined(val) && Number.isSafeInteger(val) && val < 0)
-		throw new Error(name + ' must be a positive integer');
-};
-
-const validate = ({
-	particleCount,
-	duration,
-	colors,
-	particleSize,
-	force,
-	stageHeight,
-	stageWidth,
-	particleShape,
-}: ConfettiOptions) => {
-	assertPositiveInteger(particleCount, 'particleCount');
-	assertPositiveInteger(duration, 'duration');
-	assertPositiveInteger(particleSize, 'particleSize');
-	assertPositiveInteger(force, 'force');
-	assertPositiveInteger(stageHeight, 'stageHeight');
-	assertPositiveInteger(stageWidth, 'stageWidth');
-
-	if (!isUndefined(particleShape) && !/^(mix|circles|rectangles)$/i.test(particleShape!))
-		throw new Error('particlesShape should be either "mix" or "circles" or "rectangle"');
-
-	if (!isUndefined(colors) && !Array.isArray(colors))
-		throw new Error('colors must be an array of strings');
-
-	if (force! > 1) throw new Error('force must be within 0 and 1');
-};
-
-export type { ParticleShape as ConfettiParticleShape, ConfettiOptions };
+export type { ConfettiOptions, ParticleShape as ConfettiParticleShape };

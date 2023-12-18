@@ -40,11 +40,11 @@
 		"./package.json": "./package.json"
 	},
 	"scripts": {
-		"dev": "rollup -cw",
-		"build": "rollup -c ",
+		"compile:watch": "tsup --watch",
+		"compile": "tsup",
+		"size": "echo 'Svelte size:' && brotli-size dist/min/index.js",
 		"pub": "pnpm build && pnpm publish --no-git-checks --access public",
-		"pub:dry": "pnpm build && pnpm publish --dry-run --no-git-checks --access public",
-		"size": "echo 'Svelte size:' && brotli-size dist/index.js"
+		"pub:dry": "pnpm build && pnpm publish --dry-run --no-git-checks --access public"
 	},
 	"devDependencies": {
 		"@neoconfetti/core": "workspace:*"
