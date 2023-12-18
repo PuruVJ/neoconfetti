@@ -18,11 +18,11 @@ button.onclick = () => {
 		await sleep(1000);
 
 		confetti.options.colors = ['white', 'black'];
-		confetti.options.force = 1;
+		// confetti.options.force = 1;
 
 		await sleep(600);
 		console.log('Changing again');
 
-		// confetti.options = {};
+		confetti.options = {};
 	}, 10);
 };
