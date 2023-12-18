@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig } from 'tsup';
 
-export const coreConfig = ({ dtsBanner }: { dtsBanner: string } = { dtsBanner: '' }) =>
+export const coreConfig = ({ dtsBanner }: { dtsBanner?: string } = { dtsBanner: '' }) =>
 	defineConfig([
 		{
 			entry: ['./src/index.ts'],
