@@ -1,0 +1,57 @@
+{
+	"name": "@neoconfetti/vanilla",
+	"version": "2.0.0",
+	"description": "JS library to add dragging to your apps 😉",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist/*"
+	],
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": {
+				"production": "./dist/min/index.js",
+				"development": "./dist/index.js"
+			},
+			"default": "./dist/min/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PuruVJ/neodrag.git"
+	},
+	"keywords": [
+		"draggable",
+		"vanilla",
+		"javascript",
+		"typescript",
+		"react-draggable",
+		"drag",
+		"neodrag",
+		"small",
+		"tiny",
+		"performant",
+		"neodrag"
+	],
+	"author": "Puru Vijay",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/PuruVJ/neodrag/issues"
+	},
+	"homepage": "https://github.com/PuruVJ/neodrag/tree/main/packages/vanilla#readme",
+	"scripts": {
+		"compile": "tsup",
+		"compile:watch": "tsup --watch",
+		"size": "echo 'Vanilla size:' && brotli-size dist/min/index.js",
+		"pub": "pnpm build && pnpm publish --no-git-checks --access public",
+		"pub:dry": "pnpm build && pnpm publish --dry-run --no-git-checks --access public"
+	},
+	"devDependencies": {
+		"@neoconfetti/core": "workspace:*"
+	}
+}
