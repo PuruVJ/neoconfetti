@@ -14,14 +14,14 @@ export class Confetti {
 
 	constructor(node: HTMLElement, options: ConfettiOptions = {}) {
 		this._n = node;
-		this._o = this.#createProxy(options);
+		this._o = this._cp(options);
 
 		return new Proxy(this, {
 			set: (target, property: 'options', value: ConfettiOptions, receiver) => {
 				if (property === 'options') {
 					// Update the options and trigger confetti update
-					Reflect.set(target, '_options', this.#createProxy(value), receiver);
-					target.#updateConfetti();
+					Reflect.set(target, '_options', this._cp(value), receiver);
+					target._uc();
 					return true;
 				}
 				return Reflect.set(target, property, value, receiver);
@@ -32,11 +32,14 @@ export class Confetti {
 		});
 	}
 
-	#createProxy = (options: ConfettiOptions) => {
+	/**
+	 * Create proxy
+	 */
+	private _cp = (options: ConfettiOptions) => {
 		return new Proxy(options, {
 			set: (target, property, value) => {
 				Reflect.set(target, property, value);
-				this.#updateConfetti();
+				this._uc();
 				return true;
 			},
 			get: (target, property) => {
@@ -45,7 +48,8 @@ export class Confetti {
 		});
 	};
 
-	#updateConfetti = () => {
+	/** Update confetti */
+	private _uc = () => {
 		if (this._i) {
 			this._i.update(this._o);
 		}
@@ -56,8 +60,8 @@ export class Confetti {
 	}
 
 	set options(value: ConfettiOptions) {
-		this._o = this.#createProxy(value);
-		this.#updateConfetti();
+		this._o = this._cp(value);
+		this._uc();
 	}
 
 	async explode() {
