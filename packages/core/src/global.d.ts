@@ -1,6 +1,7 @@
-declare module '*.module.css' {
-	const mapping: { [key: string]: string };
-	export default mapping;
+declare module '*.module.css?map' {
+	const container: string;
+	const particle: string;
+	export { container, particle };
 }
 
 declare module '*?inline' {

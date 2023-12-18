@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"outDir": "dist",
+		"emitDeclarationOnly": true,
+		"declaration": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"moduleResolution": "Bundler"
+	},
+	"include": ["./**/*"]
+}
