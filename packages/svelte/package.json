@@ -1,6 +1,6 @@
 {
 	"name": "@neoconfetti/svelte",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Confetti explosion in Svelte 🎉🎊",
 	"author": "Puru Vijay",
 	"license": "MIT",
