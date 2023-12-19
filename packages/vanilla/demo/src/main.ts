@@ -1,5 +1,5 @@
 import './style.css';
-import { Confetti } from '@neodrag/vanilla';
+import { Confetti } from '@neoconfetti/vanilla';
 
 const button = document.querySelector<HTMLDivElement>('.button')!;
 const targetEl = document.querySelector<HTMLDivElement>('.target')!;

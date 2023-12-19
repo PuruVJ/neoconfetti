@@ -26,7 +26,7 @@
 		"compile": "tsup",
 		"size": "brotli-size dist/min/index.js"
 	},
-	"description": "Let's party 🎊🎊 with Svelte! @neodrag/core allows you to show an awesome confetti explosion on your page, with Svelte!",
+	"description": "Let's party 🎊🎊 with Svelte! @neoconfetti/core allows you to show an awesome confetti explosion on your page, with Svelte!",
 	"keywords": [],
 	"author": "Puru Vijay",
 	"license": "MIT"

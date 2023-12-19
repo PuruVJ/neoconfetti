@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { vDraggable } from '@neodrag/vue';
+import { vConfetti } from '@neoconfetti/vue';
 </script>
 
 <template>
-	<div v-draggable>Hello</div>
+	<div v-confetti>Hello</div>
 </template>

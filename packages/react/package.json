@@ -1,13 +1,13 @@
 {
-	"name": "@neoconfetti/svelte",
-	"version": "2.1.0",
-	"description": "Confetti explosion in Svelte 🎉🎊",
+	"name": "@neoconfetti/react",
+	"version": "0.1.0",
+	"description": "Confetti explosion in React 🎉🎊",
 	"author": "Puru Vijay",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/puruvj/neoconfetti/issues"
 	},
-	"homepage": "https://github.com/puruvj/neoconfetti/tree/main/packages/svelte#readme",
+	"homepage": "https://github.com/puruvj/neoconfetti/tree/main/packages/react#readme",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/puruvj/neoconfetti.git"
@@ -22,7 +22,10 @@
 		"sveltekit",
 		"small",
 		"tiny",
-		"performant"
+		"performant",
+		"react",
+		"nextjs",
+		"remix"
 	],
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -46,7 +49,7 @@
 	"scripts": {
 		"compile:watch": "tsup --watch",
 		"compile": "tsup",
-		"size": "echo 'Svelte size:' && brotli-size dist/min/index.js",
+		"size": "echo 'React size:' && brotli-size dist/min/index.js",
 		"pub": "pnpm compile && pnpm publish --no-git-checks --access public",
 		"pub:dry": "pnpm compile && pnpm publish --dry-run --no-git-checks --access public"
 	},

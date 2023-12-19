@@ -1,98 +1,44 @@
-# @neoconfetti/vanilla
+# @neoconfetti/react
 
-Let's party 🎊🎊 with JavaScript! `@neoconfetti/vanilla` allows you to show an awesome confetti explosion on your page!
+Let's party 🎊🎊 with React! `@neoconfetti/svelte` allows you to show an awesome confetti explosion on your page, with React/Preact/Million!
 
 ## Features
 
-- 🤏 Tiny - 1.64KB min+br.
+- 🤏 Tiny - 1.61KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
-- 🧙‍♀️ Elegant - `new Confetti()` -> `confetti.explode()`
 - 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.
+- 🖥️ SSR friendly - Works seamlessly in NextJS/Remix/Gatsby/Redwood and other Server Side Rendering environments!
 
-[Try it in Stackblitz](https://stackblitz.com/edit/vitejs-vite-uv6ebi?file=src/main.ts,src/style.css,index.html,package.json&terminal=dev)
+<!-- TODO: Examples -->
+<!-- [Try it in Svelte REPL](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24) -->
 
 ## Installing
 
 ```bash
-pnpm add @neoconfetti/vanilla
+# pnpm
+pnpm add @neoconfetti/react
+
+# bun
+bun install @neoconfetti/react
 
 # npm
-npm install @neoconfetti/vanilla
-
-# yarn
-yarn add @neoconfetti/vanilla
+npm install @neoconfetti/react
 ```
 
-# Usage
+## Usage
 
-Basic usage
+Basic usage:
 
 ```tsx
-import { Confetti } from '@neoconfetti/vanilla';
+import { Confetti } from '@neoconfetti/react';
 
-const confetti = new Confetti(document.querySelector('#confetti'));
-
-// Explode the confetti
-confetti.explode();
+<Confetti />;
 ```
 
-With options
+Customizing behavior with options:
 
 ```tsx
-import { Confetti } from '@neoconfetti/vanilla';
-
-const confetti = new Confetti(document.querySelector('#confetti'), {
-	color: ['#ff0000', '#00ff00', '#0000ff'],
-	force: 0.9,
-});
-
-confetti.explode();
-```
-
-Defining options elsewhere with typescript
-
-```tsx
-import { type ConfettiOptions, Confetti } from '@neoconfetti/vanilla';
-
-const options: ConfettiOptions = {
-	color: ['#ff0000', '#00ff00', '#0000ff'],
-	force: 0.9,
-};
-
-const confetti = new Confetti(document.querySelector('#confetti'), options);
-confetti.explode();
-```
-
-Update options:
-
-```ts
-import { Confetti } from '@neoconfetti/vanilla';
-
-const confetti = new Confetti(document.querySelector('#confetti'), {
-	color: ['#ff0000', '#00ff00', '#0000ff'],
-	force: 0.9,
-});
-
-// Update the specific options. Will be merged with the existing options.
-confetti.options.colors = ['white', 'black'];
-
-// Completely overrides existing options, in this case, the `force` property is set to its default value.
-confetti.options = { colors: ['white', 'black'] };
-```
-
-Destroy:
-
-You must destroy the confetti once its not needed
-
-```ts
-confetti.destroy();
-```
-
-Waiting for confetti to finish:
-
-```ts
-// confetti.explode() returns a promise that resolves when the confetti is done exploding. You can use this to wait for the confetti to finish exploding before doing something else.
-await confetti.explode();
+<Confetti particleCount={200} force={0.3} />
 ```
 
 ## Props
@@ -110,9 +56,7 @@ Number of confetti particles to create.
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	particleCount: 200,
-});
+<Confetti particleCount={200} />
 ```
 
 ### particleSize
@@ -126,9 +70,7 @@ Size of the confetti particles in pixels
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	particleSize: 20,
-});
+<Confetti particleSize={20} />
 ```
 
 ### particleShape
@@ -146,9 +88,7 @@ Shape of particles to use. Can be `mix`, `circles` or `rectangles`
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	particleShape: 'circles',
-});
+<Confetti particleShape="circles" />
 ```
 
 ### duration
@@ -162,14 +102,12 @@ Duration of the animation in milliseconds
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	duration: 5000,
-});
+<Confetti duration={5000} />
 ```
 
 ### colors
 
-Colors to use for the confetti particles. Pass string array of colors. Can use hex colors, named colors, CSS Variables, literally anything valid in CSS.
+Colors to use for the confetti particles. Pass string array of colors. Can use hex colors, named colors, CSS Variables, literally anything valid in plain CSS.
 
 **type:** `Array<string>`
 
@@ -178,9 +116,7 @@ Colors to use for the confetti particles. Pass string array of colors. Can use h
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	colors: ['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7'],
-});
+<Confetti colors={['#FFC700', '#FF0000', '#2E3191', '#41BBC7']} />
 ```
 
 ### force
@@ -194,9 +130,7 @@ Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum fo
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	force: 0.3,
-});
+<Confetti force={0.3} />
 ```
 
 ### stageHeight
@@ -210,9 +144,7 @@ Height of the stage in pixels. Confetti will only fall within this height.
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	stageHeight: 500,
-});
+<Confetti stageHeight={500} />
 ```
 
 ### stageWidth
@@ -226,9 +158,7 @@ Width of the stage in pixels. Confetti will only fall within this width.
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	stageWidth: 500,
-});
+<Confetti stageWidth={1000} />
 ```
 
 ### destroyAfterDone
@@ -242,15 +172,13 @@ Whether or not destroy all confetti nodes after the `duration` period has passed
 **Example:**
 
 ```tsx
-new Confetti(document.querySelector('#confetti'), {
-	destroyAfterDone: false,
-});
+<Confetti destroyAfterDone={false} />
 ```
 
-<!--
-## Examples
+<!-- TODO -->
+<!-- ## Examples -->
 
-[Basic Example](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
+<!-- [Basic Example](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
 
 [Confetti where mouse click](https://svelte.dev/repl/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.50.1) -->
 
@@ -264,15 +192,11 @@ This library functions by creating 2 DOM nodes for every single confetti. By def
 
 Also, after the specified `duration`, all the confetti DOM nodes will be destroyed. This is to free up memory. If you wish to keep them around, set `destroyAfterDone` to `false`.
 
-## License
-
-MIT License
-© [Puru Vijay](https://twitter.com/puruvjdev)
-
 ## Credits
 
 This library is the port of the amazing [react-confetti-explosion](https://www.npmjs.com/package//react-confetti-explosion) package, just **10X** smaller and faster. All the logic is from that package only, optimisation and Svelte code are mine 😉
 
-# License
+## License
 
-MIT License &copy; Puru Vijay
+MIT License
+© [Puru Vijay](https://twitter.com/puruvjdev)

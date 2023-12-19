@@ -1,16 +1,19 @@
-@keyframes y-axis {
+/* y-axis */
+@keyframes ya {
 	to {
 		translate: 0 var(--sh);
 	}
 }
 
-@keyframes x-axis {
+/* x-axis */
+@keyframes xa {
 	to {
 		translate: var(--xlp) 0;
 	}
 }
 
-@keyframes rotation {
+/* rotation */
+@keyframes r {
 	50% {
 		rotate: var(--hr) 180deg;
 	}
@@ -19,7 +22,8 @@
 	}
 }
 
-.container {
+/* Container */
+.c {
 	width: 0;
 	height: 0;
 
@@ -30,24 +34,25 @@
 	z-index: 1200;
 }
 
-.particle {
-	animation: x-axis var(--dc) forwards cubic-bezier(var(--x1), var(--x2), var(--x3), var(--x4));
-	animation-name: x-axis;
+/* Particle */
+.p {
+	animation: xa var(--dc) forwards cubic-bezier(var(--x1), var(--x2), var(--x3), var(--x4));
+	animation-name: xa;
 }
 
-.particle > div {
+.p > div {
 	position: absolute;
 	top: 0;
 	left: 0;
 
-	animation: y-axis var(--dc) forwards cubic-bezier(var(--y1), var(--y2), var(--y3), var(--y4));
-	animation-name: y-axis;
+	animation: ya var(--dc) forwards cubic-bezier(var(--y1), var(--y2), var(--y3), var(--y4));
+	animation-name: ya;
 
 	width: var(--w);
 	height: var(--h);
 }
 
-.particle > div::before {
+.p > div::before {
 	display: block;
 
 	height: 100%;
@@ -56,8 +61,8 @@
 	content: '';
 	background-color: var(--bgc);
 
-	animation: rotation var(--rd) infinite linear;
-	animation-name: rotation;
+	animation: r var(--rd) infinite linear;
+	animation-name: r;
 
 	border-radius: var(--br);
 }

@@ -1,5 +1,5 @@
 import styles from './style.module.css?inline';
-import { container as c_container, particle as c_particle } from './style.module.css?map';
+import { c as c_container, p as c_particle } from './style.module.css?map';
 
 type ParticleShape = 'mix' | 'circles' | 'rectangles';
 type Particle = {
@@ -31,6 +31,13 @@ type ConfettiOptions = {
 	 * @default 12
 	 */
 	particleSize?: number;
+
+	/**
+	 * Class to apply to each confetti particle
+	 *
+	 * @default undefined
+	 */
+	particleClass?: string;
 
 	/**
 	 * Duration of the animation in milliseconds
@@ -79,11 +86,12 @@ type ConfettiOptions = {
 
 // Take DEFAULT.COLORS, etc anf convert to DEFAULT_COLORS, etc
 const DEFAULT_COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
-const DEFAULT_DURATION = 3500;
+export const DEFAULT_DURATION = 3500;
 const DEFAULT_FORCE = 0.5;
 const DEFAULT_PARTICLE_COUNT = 150;
 const DEFAULT_PARTICLE_SHAPE = 'mix' as ParticleShape;
 const DEFAULT_PARTICLE_SIZE = 12;
+const DEFAULT_PARTICLE_CLASS = '';
 const DEFAULT_DESTROY_AFTER_DONE = true;
 const DEFAULT_STAGE_HEIGHT = 800;
 const DEFAULT_STAGE_WIDTH = 1600;
@@ -96,6 +104,7 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 		particleCount = DEFAULT_PARTICLE_COUNT,
 		particleShape = DEFAULT_PARTICLE_SHAPE,
 		particleSize = DEFAULT_PARTICLE_SIZE,
+		particleClass = DEFAULT_PARTICLE_CLASS,
 		destroyAfterDone = DEFAULT_DESTROY_AFTER_DONE,
 		stageHeight = DEFAULT_STAGE_HEIGHT,
 		stageWidth = DEFAULT_STAGE_WIDTH,
@@ -106,13 +115,12 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 	// stage-height
 	container.style.setProperty('--sh', stageHeight + 'px');
 
-	let particles = create_particles(particleCount, colors);
-	let nodes = create_particle_nodes(container, particles);
+	let particles: Particle[] = [];
+	let nodes: HTMLElement[] = [];
 
 	const calc_rotation_transform = () => math_round(random() * (POSSIBLE_ROTATION_TRANSFORMS - 1));
 	const get_is_circle = (particle_shape: ParticleShape, rotation_transform: number) =>
-		particle_shape !== 'rectangles' &&
-		(particle_shape === 'circles' || should_be_circle(rotation_transform));
+		particle_shape === 'circles' || should_be_circle(rotation_transform);
 
 	function confetti_styles(node: HTMLElement, degree: number) {
 		// Crazy calculations for generating styles
@@ -193,10 +201,10 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 		container.innerHTML = '';
 		clearTimeout(timer);
 
-		let particles = create_particles(particleCount, colors);
-		let nodes = create_particle_nodes(container, particles);
+		particles = create_particles(particleCount, colors);
+		nodes = create_particle_nodes(container, particles, particleClass);
 
-		for (const [i, node] of Object.entries(nodes)) confetti_styles(node, particles[+i].degree);
+		for (const [i, node] of object_entries(nodes)) confetti_styles(node, particles[+i].degree);
 
 		timer = setTimeout(() => {
 			if (destroyAfterDone) container.innerHTML = '';
@@ -210,6 +218,7 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 			const new_particle_count = new_options.particleCount ?? DEFAULT_PARTICLE_COUNT;
 			const new_particle_shape = new_options.particleShape ?? DEFAULT_PARTICLE_SHAPE;
 			const new_particle_size = new_options.particleSize ?? DEFAULT_PARTICLE_SIZE;
+			const new_particle_class = new_options.particleClass ?? DEFAULT_PARTICLE_CLASS;
 			const new_colors = new_options.colors ?? DEFAULT_COLORS;
 			const new_stage_height = new_options.stageHeight ?? DEFAULT_STAGE_HEIGHT;
 			const new_duration = new_options.duration ?? DEFAULT_DURATION;
@@ -222,20 +231,27 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 			let start_from_scratch = false;
 			// Other might have changed. First, check the diff for colors, as only that matters
 			if (new_particle_count === particleCount) {
-				//! Why the hell this works but directly setting the CSS variables on nodes doesn't??
+				// Why the hell this works but directly setting the CSS variables on nodes doesn't??
 				nodes = Array.from(container.querySelectorAll(`.${c_particle}`));
 
-				for (const [i, { color }] of Object.entries(particles)) {
+				for (const [i, { color }] of object_entries(particles)) {
+					const node = nodes[+i];
 					if (JSON.stringify(colors) !== JSON.stringify(new_colors)) {
-						nodes[+i].style.setProperty('--bgc', color);
+						node.style.setProperty('--bgc', color);
 					}
 
 					if (new_particle_shape !== particleShape) {
-						nodes[+i].style.setProperty(
+						node.style.setProperty(
 							// --border-radius
 							'--br',
 							get_is_circle(new_particle_shape, calc_rotation_transform()) ? '50%' : '0'
 						);
+					}
+
+					if (new_particle_class !== particleClass) {
+						// Surgically remove the old particleClass from all particles, and replace with new_particle_class
+						if (particleClass) node.classList.remove(particleClass);
+						if (new_particle_class) node.classList.add(new_particle_class);
 					}
 				}
 			} else {
@@ -256,18 +272,16 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 			particleCount = new_particle_count;
 			particleShape = new_particle_shape;
 			particleSize = new_particle_size;
+			particleClass = new_particle_class;
 			destroyAfterDone = new_destroy_after_done;
 			stageHeight = new_stage_height;
 			stageWidth = new_stage_width;
 
-			console.log(1, start_from_scratch);
-
-			if (start_from_scratch) {
-				scratch();
-			}
+			if (start_from_scratch) scratch();
 		},
 
 		destroy() {
+			container.innerHTML = '';
 			clearTimeout(timer);
 		},
 	};
@@ -282,12 +296,16 @@ function append_styles(styles: string) {
 	append_child(document.head, style);
 }
 
-function create_particle_nodes(container: HTMLElement, particles: Particle[] = []) {
+function create_particle_nodes(
+	container: HTMLElement,
+	particles: Particle[] = [],
+	particleClass: ConfettiOptions['particleClass']
+) {
 	const particle_nodes: HTMLElement[] = [];
 
 	for (const { color } of particles) {
 		const particle_node = element('div');
-		particle_node.className = c_particle;
+		particle_node.className = `${c_particle} ${particleClass}`;
 		particle_node.style.setProperty('--bgc', color);
 
 		const inner_particle = element('div');
@@ -332,6 +350,8 @@ const rotate = (degree: number, amount: number) =>
 	degree + amount > 360 ? degree + amount - 360 : degree + amount;
 
 const coin_flip = () => random() > 0.5;
+
+const object_entries = Object.entries;
 
 // We can use the first three bits to flag which axis to rotate on.
 // x = binary 100 = decimal 4
