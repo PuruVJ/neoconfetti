@@ -1,4 +1,9 @@
-import { confetti, type ConfettiOptions, type ConfettiParticleShape } from '@neoconfetti/core';
+import {
+	DEFAULT_DURATION,
+	confetti,
+	type ConfettiOptions,
+	type ConfettiParticleShape,
+} from '@neoconfetti/core';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -57,7 +62,7 @@ export class Confetti {
 	 */
 	async explode() {
 		this.#instance = confetti(this.#node, this.#options);
-		return sleep(this.#options.duration ?? 3500);
+		return sleep(this.#options.duration ?? DEFAULT_DURATION);
 	}
 
 	/**

@@ -4,7 +4,7 @@ Let's party 🎊🎊 with JavaScript! `@neoconfetti/vanilla` allows you to show 
 
 ## Features
 
-- 🤏 Tiny - 1.71KB min+br.
+- 🤏 Tiny - 1.62KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
 - 🧙‍♀️ Elegant - `new Confetti()` -> `confetti.explode()`
 - 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.
