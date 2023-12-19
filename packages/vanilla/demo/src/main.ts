@@ -17,12 +17,22 @@ button.onclick = () => {
 		console.log('Changing colors now');
 		await sleep(1000);
 
-		confetti.options.colors = ['white', 'black'];
-		// confetti.options.force = 1;
+		confetti.options.colors = ['red', 'blue'];
+		confetti.options.particleShape = 'circles';
+		confetti.options.force = 1;
 
 		await sleep(600);
 		console.log('Changing again');
 
-		confetti.options = {};
+		confetti.options = { particleCount: 100, duration: 7000, colors: ['red', 'blue'] };
+
+		await sleep(1000);
+		confetti.options.particleShape = 'circles';
+
+		await sleep(1000);
+		confetti.options.particleShape = 'rectangles';
+
+		await sleep(1000);
+		confetti.options.particleShape = 'mix';
 	}, 10);
 };

@@ -20,17 +20,10 @@ export class Confetti {
 		return new Proxy(options, {
 			set: (target, property, value) => {
 				Reflect.set(target, property, value);
-				this.#update_confetti(); // Update confetti instance when options change
+				this.#instance?.update(this.#options); // Update confetti instance when options change
 				return true;
 			},
 		});
-	};
-
-	/** Update Confetti */
-	#update_confetti = () => {
-		if (this.#instance) {
-			this.#instance.update(this.#options);
-		}
 	};
 
 	get options() {
@@ -39,7 +32,7 @@ export class Confetti {
 
 	set options(value: ConfettiOptions) {
 		this.#options = this.#create_proxy(value); // Initialize options with a proxy
-		this.#update_confetti(); // Update confetti instance on setting new options
+		this.#instance?.update(this.#options); // Update confetti instance on setting new options
 	}
 
 	async explode() {

@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { confetti } from '@neoconfetti/core';
+	import { confetti, type ConfettiParticleShape } from '@neoconfetti/core';
 	import { onMount } from 'svelte';
 
 	let colors: string[] | undefined = undefined;
+	let particleShape: ConfettiParticleShape = 'mix';
+	let force = 0.5;
 
 	let showConfetti = false;
 
@@ -13,13 +15,16 @@
 
 		setTimeout(() => {
 			// render = {};
-			colors = ['#eee', 'black'];
+			// colors = ['#eee', 'black'];
+			// particleShape = 'circles';
+
+			force = 1;
 		}, 2000);
 	});
 </script>
 
 {#if showConfetti}
-	<div use:confetti={{ destroyAfterDone: false, colors }} />
+	<div use:confetti={{ destroyAfterDone: false, colors, particleShape, force }} />
 {/if}
 
 <!-- <ConfettiExplosion destroyAfterDone={false} particleCount={4} /> -->
