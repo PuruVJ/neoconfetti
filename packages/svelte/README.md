@@ -6,7 +6,7 @@ Let's party 🎊🎊 with Svelte! `@neoconfetti/svelte` allows you to show an aw
 
 ## Features
 
-- 🤏 Tiny - 1.66KB min+br.
+- 🤏 Tiny - 1.54KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
 - 🧙‍♀️ Elegant - Svelte action `use:confetti` rather than setting things up in `onMount` hook.
 - 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.

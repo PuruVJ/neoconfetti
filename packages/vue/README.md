@@ -6,7 +6,9 @@ Let's party 🎊🎊 with Vue! `@neoconfetti/vue` allows you to show an awesome 
 
 ## Features
 
-- 🤏 Tiny - 1.45KB min+br.
+,
+
+- 🤏 Tiny - 1.62KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
 - 🧙‍♀️ Elegant - Vue directive `v-confetti` rather than setting things up in `mounted()` hook.
 - 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.
