@@ -1,7 +1,7 @@
 {
-	"name": "@neoconfetti/vue",
-	"version": "2.0.0",
-	"description": "Confetti explosion in Vue 🎉🎊",
+	"name": "@neoconfetti/vanilla",
+	"version": "0.1.0",
+	"description": "JS library to add dragging to your apps 😉",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"type": "module",
@@ -23,36 +23,31 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/PuruVJ/neoconfetti.git"
+		"url": "git+https://github.com/PuruVJ/neodrag.git"
 	},
 	"keywords": [
-		"confetti",
-		"party",
-		"fun",
-		"badass",
-		"badassery",
-		"svelte",
-		"sveltekit",
+		"draggable",
+		"vanilla",
+		"javascript",
+		"typescript",
+		"react-draggable",
+		"drag",
+		"neodrag",
 		"small",
 		"tiny",
 		"performant",
-		"vue",
-		"solid",
-		"react",
-		"nextjs",
-		"remix",
-		"vite"
+		"neodrag"
 	],
 	"author": "Puru Vijay",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/PuruVJ/neoconfetti/issues"
+		"url": "https://github.com/PuruVJ/neodrag/issues"
 	},
-	"homepage": "https://github.com/PuruVJ/neoconfetti/tree/main/packages/vue#readme",
+	"homepage": "https://github.com/PuruVJ/neodrag/tree/main/packages/vanilla#readme",
 	"scripts": {
 		"compile": "tsup",
 		"compile:watch": "tsup --watch",
-		"size": "echo 'Vue size:' && brotli-size dist/min/index.js",
+		"size": "echo 'Vanilla size:' && brotli-size dist/min/index.js",
 		"pub": "pnpm compile && pnpm publish --no-git-checks --access public",
 		"pub:dry": "pnpm compile && pnpm publish --dry-run --no-git-checks --access public"
 	},
