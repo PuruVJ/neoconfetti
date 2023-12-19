@@ -1,8 +1,8 @@
-import { Confetti, ConfettiOptions } from '@neoconfetti/react';
+import { Confetti, ConfettiProps } from '@neoconfetti/react';
 import { useEffect, useState } from 'react';
 
 function App() {
-	const [options, setOptions] = useState<ConfettiOptions>({ destroyAfterDone: false });
+	const [options, setOptions] = useState<ConfettiProps>({ destroyAfterDone: false });
 	const [render, setRender] = useState(true);
 
 	useEffect(() => {
@@ -15,7 +15,7 @@ function App() {
 	return (
 		<>
 			<button onClick={() => setRender(false)}>Unrender</button>
-			{render && <Confetti className="hello" particleClassName="particle-something" {...options} />}
+			{render && <Confetti class="hello" particleClass="particle-something" {...options} />}
 		</>
 	);
 }

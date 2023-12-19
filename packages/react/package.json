@@ -1,7 +1,32 @@
 {
 	"name": "@neoconfetti/react",
-	"version": "2.0.3",
-	"description": "React library to add dragging to your apps 😉",
+	"version": "0.0.1",
+	"description": "Confetti explosion in React 🎉🎊",
+	"author": "Puru Vijay",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/puruvj/neoconfetti/issues"
+	},
+	"homepage": "https://github.com/puruvj/neoconfetti/tree/main/packages/react#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/puruvj/neoconfetti.git"
+	},
+	"keywords": [
+		"confetti",
+		"party",
+		"fun",
+		"badass",
+		"badassery",
+		"svelte",
+		"sveltekit",
+		"small",
+		"tiny",
+		"performant",
+		"react",
+		"nextjs",
+		"remix"
+	],
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"type": "module",
@@ -21,32 +46,10 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/PuruVJ/neodrag.git"
-	},
-	"keywords": [
-		"draggable",
-		"react",
-		"react-draggable",
-		"drag",
-		"neodrag",
-		"preact",
-		"small",
-		"tiny",
-		"performant",
-		"neodrag"
-	],
-	"author": "Puru Vijay",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/PuruVJ/neodrag/issues"
-	},
-	"homepage": "https://github.com/PuruVJ/neodrag/tree/main/packages/react#readme",
 	"scripts": {
-		"compile": "tsup",
 		"compile:watch": "tsup --watch",
-		"size": "echo 'Vue size:' && brotli-size dist/min/index.js",
+		"compile": "tsup",
+		"size": "echo 'React size:' && brotli-size dist/min/index.js",
 		"pub": "pnpm compile && pnpm publish --no-git-checks --access public",
 		"pub:dry": "pnpm compile && pnpm publish --dry-run --no-git-checks --access public"
 	},

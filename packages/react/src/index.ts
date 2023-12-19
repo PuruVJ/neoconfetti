@@ -3,10 +3,9 @@ import { createElement, useEffect, useRef } from 'react';
 
 interface ConfettiProps extends ConfettiOptions {
 	class?: string;
-	particleClass?: string;
 }
 
-export function Confetti({ class: className, particleClass, ...options }: ConfettiProps) {
+export function Confetti({ class: className, ...options }: ConfettiProps) {
 	const target_ref = useRef<HTMLElement>(null);
 	const instance_ref = useRef<ReturnType<typeof confetti>>();
 
