@@ -8,6 +8,9 @@ export class Confetti {
 
 	#instance?: ReturnType<typeof confetti>;
 
+	/**
+	 * Initialize Confetti. Doesn't explode until you call `explode()`
+	 */
 	constructor(node: HTMLElement, options: ConfettiOptions = {}) {
 		this.#node = node;
 		this.options = options; // Use the setter to initialize options
@@ -26,8 +29,11 @@ export class Confetti {
 		});
 	};
 
+	/**
+	 * options passed to confetti instance
+	 */
 	get options() {
-		return this.#options;
+		return JSON.parse(JSON.stringify(this.#options));
 	}
 
 	set options(value: ConfettiOptions) {
@@ -35,11 +41,28 @@ export class Confetti {
 		this.#instance?.update(this.#options); // Update confetti instance on setting new options
 	}
 
+	/**
+	 * Explode confetti.
+	 * @returns Promise that resolves after confetti duration
+	 *
+	 * @example
+	 *
+	 * ```ts
+	 * const confetti = new Confetti(targetEl);
+	 *
+	 * console.time('confetti')
+	 * await confetti.explode();
+	 * console.time('confetti') // Will log ~3500ms
+	 * ```
+	 */
 	async explode() {
 		this.#instance = confetti(this.#node, this.#options);
 		return sleep(this.#options.duration ?? 3500);
 	}
 
+	/**
+	 * Destroy confetti instance
+	 */
 	destroy() {
 		this.#instance?.destroy();
 	}
