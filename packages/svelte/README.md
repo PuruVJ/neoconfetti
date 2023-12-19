@@ -2,8 +2,6 @@
 
 Let's party 🎊🎊 with Svelte! `@neoconfetti/svelte` allows you to show an awesome confetti explosion on your page, with Svelte!
 
-> This library is the port of the amazing [react-confetti-explosion](https://www.npmjs.com/package//react-confetti-explosion) package. All the logic is from that package only, optimisation and Svelte code are mine 😉
-
 ## Features
 
 - 🤏 Tiny - 1.54KB min+br.
@@ -185,11 +183,19 @@ Whether or not destroy all confetti nodes after the `duration` period has passed
 
 [Confetti where mouse click](https://svelte.dev/repl/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.50.1)
 
+## Fine-grained reactivity
+
+Changing the options will destroy the existing confetti mid-flight, and create a new one with the new options. Exception: If `particlesCount` isn't changed, and properties like `colors` or `particleShape` is changed, the confetti particles will change their colors or shape mid-flight.
+
 ## Performance
 
 This library functions by creating 2 DOM nodes for every single confetti. By default, if the `particlesCount` is set to 150, it will create 300 nodes. This is a lot of nodes. For most devices, these many nodes are not a big issue, but I recommend checking your target devices' performance if you choose to go with a higher number, like 400 or 500.
 
 Also, after the specified `duration`, all the confetti DOM nodes will be destroyed. This is to free up memory. If you wish to keep them around, set `destroyAfterDone` to `false`.
+
+## Credits
+
+This library is the port of the amazing [react-confetti-explosion](https://www.npmjs.com/package//react-confetti-explosion) package, just **10X** smaller and faster. All the logic is from that package only, optimisation and Svelte code are mine 😉
 
 ## License
 
