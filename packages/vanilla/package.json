@@ -1,7 +1,7 @@
 {
 	"name": "@neoconfetti/vanilla",
 	"version": "0.1.0",
-	"description": "JS library to add dragging to your apps 😉",
+	"description": "Confetti explosion in JavaScript 🎉🎊",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"type": "module",
@@ -23,27 +23,32 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/PuruVJ/neodrag.git"
+		"url": "git+https://github.com/PuruVJ/neoconfetti.git"
 	},
 	"keywords": [
-		"draggable",
-		"vanilla",
-		"javascript",
-		"typescript",
-		"react-draggable",
-		"drag",
-		"neodrag",
+		"confetti",
+		"party",
+		"fun",
+		"badass",
+		"badassery",
+		"svelte",
+		"sveltekit",
 		"small",
 		"tiny",
 		"performant",
-		"neodrag"
+		"react",
+		"nextjs",
+		"remix",
+		"vanilla",
+		"javascript",
+		"typescript"
 	],
 	"author": "Puru Vijay",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/PuruVJ/neodrag/issues"
+		"url": "https://github.com/PuruVJ/neoconfetti/issues"
 	},
-	"homepage": "https://github.com/PuruVJ/neodrag/tree/main/packages/vanilla#readme",
+	"homepage": "https://github.com/PuruVJ/neoconfetti/tree/main/packages/vanilla#readme",
 	"scripts": {
 		"compile": "tsup",
 		"compile:watch": "tsup --watch",
