@@ -188,14 +188,6 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 		);
 	}
 
-	const create_timer = () => {
-		const timer = setTimeout(() => {
-			if (destroyAfterDone) container.innerHTML = '';
-		}, duration);
-
-		return timer;
-	};
-
 	let timer: ReturnType<typeof setTimeout>;
 	function scratch() {
 		container.innerHTML = '';
@@ -206,7 +198,9 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 
 		for (const [i, node] of Object.entries(nodes)) confetti_styles(node, particles[+i].degree);
 
-		timer = create_timer();
+		timer = setTimeout(() => {
+			if (destroyAfterDone) container.innerHTML = '';
+		}, duration);
 	}
 
 	scratch();
