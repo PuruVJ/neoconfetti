@@ -45,6 +45,8 @@ const confetti = new Confetti(document.querySelector('#confetti'), {
 	color: ['#ff0000', '#00ff00', '#0000ff'],
 	force: 0.9,
 });
+
+confetti.explode();
 ```
 
 Defining options elsewhere with typescript
@@ -84,6 +86,13 @@ You must destroy the confetti once its not needed
 
 ```ts
 confetti.destroy();
+```
+
+Waiting for confetti to finish:
+
+```ts
+// confetti.explode() returns a promise that resolves when the confetti is done exploding. You can use this to wait for the confetti to finish exploding before doing something else.
+await confetti.explode();
 ```
 
 ## Props
