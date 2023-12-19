@@ -4,7 +4,7 @@ Let's party 🎊🎊 with React! `@neoconfetti/svelte` allows you to show an awe
 
 ## Features
 
-- 🤏 Tiny - 1.65KB min+br.
+- 🤏 Tiny - 1.61KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
 - 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.
 - 🖥️ SSR friendly - Works seamlessly in NextJS/Remix/Gatsby/Redwood and other Server Side Rendering environments!
