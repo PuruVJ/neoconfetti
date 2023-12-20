@@ -1,7 +1,6 @@
 import { file as brotliSize } from 'brotli-size';
 import fg from 'fast-glob';
 import { readFileSync } from 'node:fs';
-import { mkdir, writeFile } from 'node:fs/promises';
 
 async function main() {
 	const files = (
@@ -36,7 +35,7 @@ async function main() {
 		}),
 		{}
 	);
-	console.log(contents);
+	// console.log(contents);
 	console.table(Object.entries(contents).sort((a, b) => (a[0] > b[0] ? 1 : -1)));
 
 	// // Ensure folder if not exists
