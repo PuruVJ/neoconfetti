@@ -1,6 +1,6 @@
 {
 	"name": "@neoconfetti/vue",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"description": "Confetti explosion in Vue 🎉🎊",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
