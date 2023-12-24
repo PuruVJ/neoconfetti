@@ -120,7 +120,8 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 
 	const calc_rotation_transform = () => math_round(random() * (POSSIBLE_ROTATION_TRANSFORMS - 1));
 	const get_is_circle = (particle_shape: ParticleShape, rotation_transform: number) =>
-		particle_shape === 'circles' || should_be_circle(rotation_transform);
+		particleShape !== 'rectangles' &&
+		(particle_shape === 'circles' || should_be_circle(rotation_transform));
 
 	function confetti_styles(node: HTMLElement, degree: number) {
 		// Crazy calculations for generating styles
