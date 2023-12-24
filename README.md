@@ -8,6 +8,7 @@ This is a monorepo containing the following packages:
 - [@neoconfetti/react](https://github.com/PuruVJ/neoconfetti/tree/main/packages/react#readme)
 - [@neoconfetti/vue](https://github.com/PuruVJ/neoconfetti/tree/main/packages/vue#readme)
 - [@neoconfetti/vanilla](https://github.com/PuruVJ/neoconfetti/tree/main/packages/vanilla#readme)
+- [@neoconfetti/solid](https://github.com/PuruVJ/neoconfetti/tree/main/packages/solid#readme)
 
 ## Roadmap
 
@@ -15,5 +16,5 @@ This is a monorepo containing the following packages:
 - [x] @neoconfetti/react
 - [x] @neoconfetti/vue
 - [x] @neoconfetti/vanilla
-- [ ] @neoconfetti/solid
+- [x] @neoconfetti/solid
 - [ ] @neoconfetti/lit
