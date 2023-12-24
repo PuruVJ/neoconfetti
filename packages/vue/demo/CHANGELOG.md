@@ -1,5 +1,12 @@
 # demo
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [51f551a]
+  - @neoconfetti/vue@2.2.1
+
 ## 0.0.8
 
 ### Patch Changes
