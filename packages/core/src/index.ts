@@ -113,8 +113,6 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 	function append_styles(styles: string) {
 		const root = container.getRootNode() as ShadowRoot | Document;
 
-		console.log(root);
-
 		const style = element('style');
 		style.dataset.neoconfetti = '';
 		style.textContent = styles;

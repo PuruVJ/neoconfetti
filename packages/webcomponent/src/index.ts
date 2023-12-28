@@ -1,4 +1,4 @@
-import { confetti, type ConfettiParticleShape, type ConfettiOptions } from '@neoconfetti/core';
+import { confetti, type ConfettiOptions, type ConfettiParticleShape } from '@neoconfetti/core';
 
 const camel_to_kebab = (str: string) =>
 	str.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
@@ -103,6 +103,6 @@ export class InternalConfetti extends HTMLElement {
 }
 
 type HTMLNeoConfettiElement = { new (): InternalConfetti & ConfettiAttributes };
-export type { HTMLNeoConfettiElement, ConfettiOptions, ConfettiParticleShape };
+export type { ConfettiOptions, ConfettiParticleShape, HTMLNeoConfettiElement };
 
 customElements.define('neo-confetti', InternalConfetti);
