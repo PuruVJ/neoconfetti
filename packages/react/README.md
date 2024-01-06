@@ -1,6 +1,6 @@
 # @neoconfetti/react
 
-Let's party 🎊🎊 with React! `@neoconfetti/svelte` allows you to show an awesome confetti explosion on your page, with React/Preact/Million!
+Let's party 🎊🎊 with React! `@neoconfetti/react` allows you to show an awesome confetti explosion on your page, with React/Preact/Million!
 
 ## Features
 
