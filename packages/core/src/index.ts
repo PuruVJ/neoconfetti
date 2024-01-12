@@ -110,6 +110,19 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 		stageWidth = DEFAULT_STAGE_WIDTH,
 	} = options;
 
+	function append_styles(styles: string) {
+		const root = container.getRootNode() as ShadowRoot | Document;
+
+		const style = element('style');
+		style.dataset.neoconfetti = '';
+		style.textContent = styles;
+
+		if (root instanceof ShadowRoot) return void append_child(root, style);
+		if (document.querySelector(`style[data-neoconfetti]`)) return;
+
+		append_child(root.head, style);
+	}
+
 	append_styles(styles);
 	container.classList.add(c_container);
 	// stage-height
@@ -288,15 +301,6 @@ export function confetti(container: HTMLElement, options: ConfettiOptions = {}) 
 	};
 }
 
-function append_styles(styles: string) {
-	if (document.querySelector(`style[data-neoconfetti]`)) return;
-
-	const style = element('style');
-	style.dataset.neoconfetti = '';
-	style.textContent = styles;
-	append_child(document.head, style);
-}
-
 function create_particle_nodes(
 	container: HTMLElement,
 	particles: Particle[] = [],
@@ -332,7 +336,8 @@ const abs = Math.abs,
 	max = Math.max;
 
 const element = <K extends keyof HTMLElementTagNameMap>(name: K) => document.createElement(name);
-const append_child = (parent: HTMLElement, child: HTMLElement) => parent.appendChild(child);
+const append_child = (parent: HTMLElement | ShadowRoot, child: HTMLElement) =>
+	parent.appendChild(child);
 
 const create_particles = (count: number, colors: string[]) =>
 	Array.from({ length: count }, (_, i) => ({
