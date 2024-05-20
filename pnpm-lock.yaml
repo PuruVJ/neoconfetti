@@ -39,6 +39,9 @@ importers:
       lightningcss:
         specifier: ^1.22.1
         version: 1.22.1
+      lit:
+        specifier: ^3.1.0
+        version: 3.1.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -199,6 +202,28 @@ importers:
       vue-tsc:
         specifier: ^1.8.26
         version: 1.8.26(typescript@5.3.3)
+
+  packages/webcomponent:
+    devDependencies:
+      '@neoconfetti/core':
+        specifier: workspace:*
+        version: link:../core
+
+  packages/webcomponent/demo:
+    dependencies:
+      lit:
+        specifier: ^3.1.0
+        version: 3.1.0
+    devDependencies:
+      '@neoconfetti/webcomponent':
+        specifier: workspace:*
+        version: link:..
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+      vite:
+        specifier: ^5.0.8
+        version: 5.0.10(@types/node@20.10.5)(lightningcss@1.22.1)(terser@5.26.0)
 
 packages:
 
@@ -977,6 +1002,14 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
+  /@lit-labs/ssr-dom-shim@1.1.2:
+    resolution: {integrity: sha512-jnOD+/+dSrfTWYfSXBXlo5l5f0q1UuJo3tkbMDCYA2lKUYq79jaxqtGEvnRoh049nt1vdo1+45RinipU6FGY2g==}
+
+  /@lit/reactive-element@2.0.2:
+    resolution: {integrity: sha512-SVOwLAWUQg3Ji1egtOt1UiFe4zdDpnWHyc5qctSceJ5XIu0Uc76YmGpIjZgx9YJ0XtdW0Jm507sDvjOu+HnB8w==}
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.1.2
+
   /@manypkg/find-root@1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
     dependencies:
@@ -1253,6 +1286,9 @@ packages:
   /@types/semver@7.5.6:
     resolution: {integrity: sha512-dn1l8LaMea/IjDoHNd9J52uBbInB796CDffS6VdIxvqYCPSG0V0DzHp76GpaWnlhg88uYyPbXCDIowa86ybd5A==}
     dev: false
+
+  /@types/trusted-types@2.0.7:
+    resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
   /@vitejs/plugin-react@4.2.1(vite@5.0.10):
     resolution: {integrity: sha512-oojO9IDc4nCUUi8qIR11KoQm0XFFLIwsRBwHRR4d/88IWghn1y6ckz/bJ8GHDCsYEJee8mDzqtJxh15/cisJNQ==}
@@ -2679,6 +2715,25 @@ packages:
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+
+  /lit-element@4.0.2:
+    resolution: {integrity: sha512-/W6WQZUa5VEXwC7H9tbtDMdSs9aWil3Ou8hU6z2cOKWbsm/tXPAcsoaHVEtrDo0zcOIE5GF6QgU55tlGL2Nihg==}
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.1.2
+      '@lit/reactive-element': 2.0.2
+      lit-html: 3.1.0
+
+  /lit-html@3.1.0:
+    resolution: {integrity: sha512-FwAjq3iNsaO6SOZXEIpeROlJLUlrbyMkn4iuv4f4u1H40Jw8wkeR/OUXZUHUoiYabGk8Y4Y0F/rgq+R4MrOLmA==}
+    dependencies:
+      '@types/trusted-types': 2.0.7
+
+  /lit@3.1.0:
+    resolution: {integrity: sha512-rzo/hmUqX8zmOdamDAeydfjsGXbbdtAFqMhmocnh2j9aDYqbu0fjXygjCa0T99Od9VQ/2itwaGrjZz/ZELVl7w==}
+    dependencies:
+      '@lit/reactive-element': 2.0.2
+      lit-element: 4.0.2
+      lit-html: 3.1.0
 
   /load-tsconfig@0.2.5:
     resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}
