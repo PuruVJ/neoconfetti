@@ -1,46 +1,44 @@
-# @neoconfetti/svelte
+# @neoconfetti/webcomponent
 
-Let's party 🎊🎊 with Svelte! `@neoconfetti/svelte` allows you to show an awesome confetti explosion on your page, with Svelte!
+Let's party 🎊🎊 with Web Components! `@neoconfetti/webcomponent` allows you to show an awesome confetti explosion on your page, with a native web component
 
 ## Features
 
-- 🤏 Tiny - 1.49KB min+br.
+- 🤏 Tiny - 1.91KB min+br.
 - 🐇 Simple - Quite simple to use, and effectively no-config required!
-- 🧙‍♀️ Elegant - Svelte action `use:confetti` rather than setting things up in `onMount` hook.
 - 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.
-- 🖥️ SSR friendly - Works seamlessly in Sveltekit and other Server Side Rendering environments!
+- 🖥️ SSR friendly - Works seamlessly in NextJS/Remix/Gatsby/Redwood and other Server Side Rendering environments!
 
-[Try it in Svelte REPL](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24)
+<!-- TODO: Examples -->
+<!-- [Try it in Svelte REPL](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24) -->
 
 ## Installing
 
 ```bash
 # pnpm
-pnpm add @neoconfetti/svelte
+pnpm add @neoconfetti/react
+
+# bun
+bun install @neoconfetti/react
 
 # npm
-npm install @neoconfetti/svelte
-
-# yarn
-yarn add @neoconfetti/svelte
+npm install @neoconfetti/react
 ```
 
 ## Usage
 
 Basic usage:
 
-```svelte
-<script>
-	import { confetti } from '@neoconfetti/svelte';
-</script>
+```tsx
+import { Confetti } from '@neoconfetti/react';
 
-<div use:confetti />
+<Confetti />;
 ```
 
 Customizing behavior with options:
 
-```svelte
-<div use:confetti={{ particleCount: 200, force: 0.3 }} />
+```tsx
+<Confetti particleCount={200} force={0.3} />
 ```
 
 ## Props
@@ -57,8 +55,8 @@ Number of confetti particles to create.
 
 **Example:**
 
-```svelte
-<div use:confetti={{ particleCount: 200 }} />
+```tsx
+<Confetti particleCount={200} />
 ```
 
 ### particleSize
@@ -71,8 +69,8 @@ Size of the confetti particles in pixels
 
 **Example:**
 
-```svelte
-<div use:confetti={{ particleSize: 20 }} />
+```tsx
+<Confetti particleSize={20} />
 ```
 
 ### particleShape
@@ -89,8 +87,8 @@ Shape of particles to use. Can be `mix`, `circles` or `rectangles`
 
 **Example:**
 
-```svelte
-<div use:confetti={{ particleShape: 'circles' }} />
+```tsx
+<Confetti particleShape="circles" />
 ```
 
 ### duration
@@ -103,8 +101,8 @@ Duration of the animation in milliseconds
 
 **Example:**
 
-```svelte
-<div use:confetti={{ duration: 5000 }} />
+```tsx
+<Confetti duration={5000} />
 ```
 
 ### colors
@@ -117,8 +115,8 @@ Colors to use for the confetti particles. Pass string array of colors. Can use h
 
 **Example:**
 
-```svelte
-<div use:confetti={{ colors: ['var(--yellow)', 'var(--red)', '#2E3191', '#41BBC7'] }} />
+```tsx
+<Confetti colors={['#FFC700', '#FF0000', '#2E3191', '#41BBC7']} />
 ```
 
 ### force
@@ -131,8 +129,8 @@ Force of the confetti particles. Between 0 and 1. 0 is no force, 1 is maximum fo
 
 **Example:**
 
-```svelte
-<div use:confetti={{ force: 0.3 }} />
+```tsx
+<Confetti force={0.3} />
 ```
 
 ### stageHeight
@@ -145,8 +143,8 @@ Height of the stage in pixels. Confetti will only fall within this height.
 
 **Example:**
 
-```svelte
-<div use:confetti={{ stageHeight: 500 }} />
+```tsx
+<Confetti stageHeight={500} />
 ```
 
 ### stageWidth
@@ -159,8 +157,8 @@ Width of the stage in pixels. Confetti will only fall within this width.
 
 **Example:**
 
-```svelte
-<div use:confetti={{ stageWidth: 500 }} />
+```tsx
+<Confetti stageWidth={1000} />
 ```
 
 ### destroyAfterDone
@@ -173,15 +171,16 @@ Whether or not destroy all confetti nodes after the `duration` period has passed
 
 **Example:**
 
-```svelte
-<div use:confetti={{ destroyAfterDone: false }} />
+```tsx
+<Confetti destroyAfterDone={false} />
 ```
 
-## Examples
+<!-- TODO -->
+<!-- ## Examples -->
 
-[Basic Example](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
+<!-- [Basic Example](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
 
-[Confetti where mouse click](https://svelte.dev/repl/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.50.1)
+[Confetti where mouse click](https://svelte.dev/repl/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.50.1) -->
 
 ## Fine-grained reactivity
 
