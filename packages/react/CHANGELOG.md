@@ -1,5 +1,11 @@
 # @neoconfetti/react
 
+## 1.0.0
+
+### Major Changes
+
+- e0e8a6b: Compatible with React Server Components
+
 ## 0.2.0
 
 ### Minor Changes
