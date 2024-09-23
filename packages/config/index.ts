@@ -3,9 +3,13 @@ import { Plugin } from 'esbuild';
 import { transform } from 'lightningcss';
 import fs from 'node:fs';
 import { resolve } from 'node:path';
-import { defineConfig } from 'tsup';
+import { defineConfig, type Options } from 'tsup';
 
-export const coreConfig = ({ dtsBanner }: { dtsBanner?: string } = { dtsBanner: '' }) =>
+export const coreConfig = ({
+	jsBanner = '',
+	dtsBanner = '',
+	treeshake = 'smallest',
+}: { jsBanner?: string; dtsBanner?: string; treeshake?: Options['treeshake'] } = {}) =>
 	defineConfig([
 		{
 			entry: ['./src/index.ts'],
@@ -14,8 +18,9 @@ export const coreConfig = ({ dtsBanner }: { dtsBanner?: string } = { dtsBanner: 
 			target: 'es2022',
 			dts: { resolve: true, banner: dtsBanner },
 			clean: true,
-			treeshake: 'smallest',
+			treeshake,
 			esbuildPlugins: [processCSS()],
+			banner: { js: jsBanner },
 		},
 		{
 			entry: ['./src/index.ts'],
@@ -25,7 +30,7 @@ export const coreConfig = ({ dtsBanner }: { dtsBanner?: string } = { dtsBanner: 
 			target: 'es2022',
 			clean: true,
 			outDir: 'dist/min',
-			treeshake: 'smallest',
+			treeshake,
 			esbuildPlugins: [processCSS()],
 		},
 	]);

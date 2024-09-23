@@ -1,5 +1,3 @@
-'use client';
-
 import { confetti, type ConfettiOptions, type ConfettiParticleShape } from '@neoconfetti/core';
 import { createElement, useEffect, useRef } from 'react';
 
