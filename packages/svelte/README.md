@@ -10,7 +10,7 @@ Let's party 🎊🎊 with Svelte! `@neoconfetti/svelte` allows you to show an aw
 - 🗃️ Customizable - Offers tons of options that you can modify to get different behaviors.
 - 🖥️ SSR friendly - Works seamlessly in Sveltekit and other Server Side Rendering environments!
 
-[Try it in Svelte REPL](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24)
+[Try it in Svelte REPL](https://svelte.dev/playground/4e41a080739a4427a1f2c98b7f5d4b24)
 
 ## Installing
 
@@ -179,9 +179,9 @@ Whether or not destroy all confetti nodes after the `duration` period has passed
 
 ## Examples
 
-[Basic Example](https://svelte.dev/repl/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
+[Basic Example](https://svelte.dev/playground/4e41a080739a4427a1f2c98b7f5d4b24?version=3.50.1)
 
-[Confetti where mouse click](https://svelte.dev/repl/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.50.1)
+[Confetti where mouse click](https://svelte.dev/playground/dbe0ab06c34f4f25aa6f948fdd1982c7?version=3.50.1)
 
 ## Fine-grained reactivity
 
