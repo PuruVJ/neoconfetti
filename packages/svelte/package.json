@@ -52,5 +52,8 @@
 	},
 	"devDependencies": {
 		"@neoconfetti/core": "workspace:*"
+	},
+	"peerDependencies": {
+		"svelte": "^3.0.0 || ^4.0.0 || ^5.0.0"
 	}
 }
