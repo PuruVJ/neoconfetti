@@ -1,5 +1,11 @@
 # @neoconfetti/svelte
 
+## 2.2.2
+
+### Patch Changes
+
+- bbc8ff4: Add svelte peerDependency
+
 ## 2.2.1
 
 ### Patch Changes
